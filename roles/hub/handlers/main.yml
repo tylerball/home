@@ -1,0 +1,7 @@
+- name: restart hass
+  systemd: name=home-assistant@homeassistant.service state=restarted
+  become: yes
+
+- name: restart homebridge
+  systemd: name=homebridge@homeassistant.service state=restarted
+  become: yes

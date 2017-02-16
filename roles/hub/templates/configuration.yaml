@@ -1,0 +1,59 @@
+homeassistant:
+  name: Davenport
+  latitude: {{ hass.latitude }}
+  longitude: {{ hass.longitude }}
+  elevation: 101
+  unit_system: metric
+  time_zone: America/Toronto
+
+frontend:
+http:
+  api_password: '{{ hass.api_password }}'
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+  trusted_networks:
+    - 192.168.1.45
+
+updater:
+discovery:
+conversation:
+history:
+logbook:
+sun:
+sensor:
+  - platform: yr
+  - platform: ring
+    username: {{ hass.ring_username }}
+    password: {{ hass.ring_password }}
+    monitored_conditions:
+      - battery
+      - last_activity
+      - motion
+      - volume
+tts:
+  platform: google
+
+media_player:
+  - platform: onkyo
+    host: 192.168.1.49
+    name: receiver
+    sources:
+      pc: 'Apple TV'
+      tv-cd: 'Turntable'
+
+ecobee:
+  api_key: {{ hass.ecobee_key }}
+
+zwave:
+  usb_path: /dev/ttyACM0
+  config_path: /srv/homeassistant/src/python-openzwave/openzwave/config
+
+camera:
+  platform: foscam
+  ip: 192.168.1.45
+  username: tylerball
+  password: {{ hass.foscam_password }}
+
+customize:
+  ecobee:
+    homebridge_hidden: true

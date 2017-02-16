@@ -1,0 +1,19 @@
+{
+  "bridge": {
+    "name": "Homebridge",
+    "pin": "{{ homebridge.pin }}",
+    "port": "51826",
+    "username": "{{ homebridge.username }}"
+  },
+
+  "platforms": [
+    {
+      "platform": "HomeAssistant",
+      "name": "HomeAssistant",
+      "host": "http://localhost:8123",
+      "password": "{{ hass.api_password }}",
+      "supported_types": ["binary_sensor", "cover", "fan", "input_boolean", "light", "lock", "media_player", "scene", "sensor", "switch"],
+      "logging": true
+    }
+  ]
+}

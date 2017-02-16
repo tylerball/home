@@ -1,0 +1,4 @@
+---
+- hosts: hub
+  roles:
+    - hub

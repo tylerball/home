@@ -1,0 +1,6 @@
+apt_packages:
+  - libavahi-compat-libdnssd-dev
+
+npm_packages:
+  - homebridge
+  - homebridge-homeassistant
