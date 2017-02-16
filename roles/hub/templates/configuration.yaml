@@ -6,6 +6,12 @@ homeassistant:
   unit_system: metric
   time_zone: America/Toronto
 
+  customize:
+    - entity_id: sensor.home_humidity
+      homebridge_hidden: true
+    - entity_id: sensor.front_door_motion_sensor
+      sensor_class: motion
+
 frontend:
 http:
   api_password: '{{ hass.api_password }}'
@@ -53,7 +59,3 @@ camera:
   ip: 192.168.1.45
   username: tylerball
   password: {{ hass.foscam_password }}
-
-customize:
-  ecobee:
-    homebridge_hidden: true
