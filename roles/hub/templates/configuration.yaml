@@ -11,6 +11,16 @@ homeassistant:
       homebridge_hidden: true
     - entity_id: sensor.front_door_motion_sensor
       sensor_class: motion
+    - entity_id: lock.schlage_be469nxcen_touchscreen_deadbolt_locked_6_0
+      friendly_name: Front Door
+    - entity_id: sensor.schlage_be469nxcen_touchscreen_deadbolt_alarm_type_6_0
+      hidden: true
+    - entity_id: sensor.schlage_be469nxcen_touchscreen_deadbolt_alarm_type_6_1
+      hidden: true
+    - entity_id: sensor.schlage_be469nxcen_touchscreen_deadbolt_sourcenodeid_6_2
+      hidden: true
+    - entity_id: sensor.schlage_be469nxcen_touchscreen_deadbolt_system_6_12
+      hidden: true
 
 frontend:
 http:
