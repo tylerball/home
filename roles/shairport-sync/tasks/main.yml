@@ -1,0 +1,63 @@
+- name: install dependencies
+  package:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+  - git
+  - autoconf
+  - libtool
+  - libdaemon-dev
+  - libasound2-dev
+  - libpopt-dev
+  - libconfig-dev
+  - avahi-daemon
+  - libavahi-client-dev
+  - libssl-dev
+  - alsa-utils
+  become: yes
+
+- name: git clone
+  git:
+    depth: 1
+    dest: /usr/src/shairport-sync
+    repo: https://github.com/mikebrady/shairport-sync.git
+  become: yes
+
+- name: create user
+  user:
+    name: shairport-sync
+    groups: audio
+    append: yes
+    state: present
+  become: yes
+
+- name: compile
+  script: compile.sh
+  args:
+    creates: /usr/local/bin/shairport-sync
+  become: yes
+  notify:
+    - restart shairport
+
+- name: asound config
+  copy:
+    dest: /etc/asound.conf
+    src: asound.conf
+  notify: reboot
+  become: yes
+
+- name: alsa config
+  copy:
+    dest: /etc/modprobe.d/alsa-base.conf
+    src: alsa-base.conf
+  notify: reboot
+  become: yes
+
+- name: create config
+  copy:
+    content: '{{ conf }}'
+    dest: /etc/shairport-sync.conf
+    mode: '0644'
+  become: yes
+  notify:
+    - restart shairport

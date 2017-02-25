@@ -1,0 +1,9 @@
+- name: restart shairport
+  service:
+    name: shairport-sync
+    state: restarted
+  become: yes
+
+- name: reboot
+  shell: reboot
+  become: yes
