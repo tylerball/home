@@ -1,5 +1,5 @@
 - name: restart shairport
-  service:
+  systemd:
     name: shairport-sync
     state: restarted
   become: yes
