@@ -8,5 +8,5 @@
     - role: shairport-sync
       conf: |
         general = {
-            name = "{{ ansible_hostname | regex_replace('\.local', '') }}";
+            name = "%h";
           };
