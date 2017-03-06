@@ -3,6 +3,10 @@
   roles:
     - hub
 
+- hosts: itunes
+  roles:
+    - itunes
+
 - hosts: speaker
   roles:
     - role: shairport-sync

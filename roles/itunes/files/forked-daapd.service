@@ -1,0 +1,11 @@
+[Unit]
+Description=forked-daapd
+After=network.target
+
+[Service]
+Type=simple
+User=daapd
+ExecStart=/usr/sbin/forked-daapd
+
+[Install]
+WantedBy=multi-user.target

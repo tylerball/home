@@ -1,0 +1,3 @@
+- name: restart forked-daapd
+  systemd: name=forked-daapd state=restarted
+  become: yes

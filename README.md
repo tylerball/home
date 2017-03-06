@@ -8,7 +8,6 @@ all my home automation configs, based on [home assistant][hass].
 1. Clone a fresh copy of [hassbian-scripts][hassbian-scripts] and run the
    scripts for installing homeassistant and zwave.
 
-        ./hassbian-scripts/install_homeassitant.sh
         ./hassbian-scripts/install_openzwave.sh
 
 1. Be sure to set a NetworkKey in
@@ -16,11 +15,6 @@ all my home automation configs, based on [home assistant][hass].
    you can generate with:
 
         cat /dev/urandom | tr -dc '0-9A-F' | fold -w 32 | head -n 1 | sed -e 's/\(..\)/0x\1, /g'
-
-1. Install node
-
-        curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
-        sudo apt-get install node
 
 1. Run ansible to copy the configs to the hub and install necessary software,
    including [homebridge][homebridge].
@@ -53,6 +47,26 @@ To get this running:
 1. Run ansible to install shairport-sync.
 
         ansible-playbook site.yml -l speaker
+
+## itunes/daapd server
+
+The other component of the music solution is a Raspberry PI running
+[forked-daapd][daapd] to serve music throughout the house. I have it connected
+to a big harddrive and use a cron job to copy music from my FreeNAS server.
+Originally I tried running forked-daapd in a jail on the server itself but it
+appears mDNS/avahi doesn't work properly in a jail.
+
+To install it I run:
+
+    ansible-playbook site.yml -l itunes
+
+Then ssh in and compile forked-daapd.
+
+    cd forked-daapd
+    autoreconf -i
+    ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-itunes
+    make
+    sudo make install
 
 [hass]:https://home-assistant.io/
 [hassbian]:https://home-assistant.io/getting-started/hassbian-installation/
