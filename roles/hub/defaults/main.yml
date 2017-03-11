@@ -1,4 +1,5 @@
 apt_packages:
+  - nodejs
   - libavahi-compat-libdnssd-dev
 
 npm_packages:

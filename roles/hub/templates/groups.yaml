@@ -1,0 +1,35 @@
+default_view:
+  name: Home
+  view: yes
+  entities:
+    - group.living_room
+    - group.front_door
+    - group.garage
+    - sun.sun
+    - climate.home
+    - media_player.mpd
+    - media_player.living_room
+
+front_door:
+  entities:
+    - lock.schlage_be469nxcen_touchscreen_deadbolt_locked_6_0
+    - sensor.front_door_motion_sensor
+    - sensor.ring_front_door_last_activity
+
+living_room:
+  entities:
+    - sensor.home_temperature
+    - sensor.home_occupancy
+    - input_slider.receiver_volume
+    - script.apple_tv_on
+    - media_player.receiver
+    - media_player.plex
+
+bedroom:
+  entities:
+    - sensor.bedroom_temperature
+    - sensor.bedroom_occupancy
+
+garage:
+  entities:
+    - camera.foscam_camera

@@ -1,4 +1,9 @@
 - include_vars: 'vault.yml'
+  tags: copy
+
+- shell: curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+  args:
+    creates: /etc/apt/sources.list.d/nodesource.list
 
 - name: apt packages
   apt: name={{ item }}
@@ -11,7 +16,8 @@
   become: yes
 
 - file:
-    path: /home/homeassistant/.homeassistant/custom_components/sensor
+    path: /home/homeassistant/.homeassistant/custom_components/sensor/
+    state: directory
     recurse: yes
     owner: homeassistant
   become: yes
@@ -22,13 +28,23 @@
     owner: homeassistant
   become: yes
 
+- name: zwave options
+  template:
+    src: options.xml
+    dest: /srv/homeassistant/src/python-openzwave/openzwave/config/options.xml
+  become: yes
+  become_user: homeassistant
+
 - template:
-    src: configuration.yaml
-    dest: /home/homeassistant/.homeassistant/configuration.yaml
+    src: '{{ item }}'
+    dest: /home/homeassistant/.homeassistant/{{ item | basename }}
+  with_fileglob:
+    - ../templates/*.yaml
   become: yes
   become_user: homeassistant
   notify:
     - restart hass
+  tags: copy
 
 - file:
     path: /home/homeassistant/.homebridge
