@@ -16,16 +16,34 @@
   become: yes
 
 - file:
-    path: /home/homeassistant/.homeassistant/custom_components/sensor/
+    path: '{{ item }}'
     state: directory
     recurse: yes
     owner: homeassistant
   become: yes
+  with_items:
+    - /home/homeassistant/.homeassistant/custom_components/sensor/
+    - /home/homeassistant/.homeassistant/custom_components/binary_sensor/
 
 - get_url:
-    url: https://raw.githubusercontent.com/tchellomello/home-assistant/ring/homeassistant/components/sensor/ring.py
+    url: https://raw.githubusercontent.com/home-assistant/home-assistant/master/homeassistant/components/ring.py
+    dest: /home/homeassistant/.homeassistant/custom_components/ring.py
+    owner: homeassistant
+    force: yes
+  become: yes
+
+- get_url:
+    url: https://raw.githubusercontent.com/home-assistant/home-assistant/master/homeassistant/components/sensor/ring.py
     dest: /home/homeassistant/.homeassistant/custom_components/sensor/ring.py
     owner: homeassistant
+    force: yes
+  become: yes
+
+- get_url:
+    url: https://raw.githubusercontent.com/home-assistant/home-assistant/master/homeassistant/components/binary_sensor/ring.py
+    dest: /home/homeassistant/.homeassistant/custom_components/binary_sensor/ring.py
+    owner: homeassistant
+    force: yes
   become: yes
 
 - name: zwave options

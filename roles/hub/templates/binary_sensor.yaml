@@ -1,0 +1,6 @@
+- platform: ring
+  username: {{ hass.ring_username }}
+  password: {{ hass.ring_password }}
+  monitored_conditions:
+    - ding
+    - motion

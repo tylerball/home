@@ -5,6 +5,8 @@
   monitored_conditions:
     - battery
     - last_activity
+    - last_ding
+    - last_motion
     - volume
 
 - platform: transmission
@@ -16,4 +18,4 @@
     - 'download_speed'
     - 'upload_speed'
 
-# - platform: plex
+- platform: plex

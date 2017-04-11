@@ -13,8 +13,9 @@ default_view:
 front_door:
   entities:
     - lock.schlage_be469nxcen_touchscreen_deadbolt_locked_6_0
-    - sensor.front_door_motion_sensor
+    - sensor.ring_front_door_motion
     - sensor.ring_front_door_last_activity
+    - binary_sensor.ring_front_door_motion
 
 living_room:
   entities:

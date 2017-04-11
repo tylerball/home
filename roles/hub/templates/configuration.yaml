@@ -61,7 +61,12 @@ notify:
     api_key: {{ hass.pushover_api_key }}
     user_key: {{ hass.pushover_user_key }}
 
+ring:
+  username: {{ hass.ring_username }}
+  password: {{ hass.ring_password }}
+
 script: !include script.yaml
 automation: !include automation.yaml
 group: !include groups.yaml
 sensor: !include sensor.yaml
+binary_sensor: !include binary_sensor.yaml
