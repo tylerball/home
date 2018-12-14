@@ -5,42 +5,45 @@ homeassistant:
   elevation: 101
   unit_system: metric
   time_zone: America/Toronto
-  customize: !include customize.yaml
 
-frontend:
 http:
   api_password: '{{ hass.api_password }}'
-  # Uncomment this if you are using SSL or running in Docker etc
-  # base_url: example.duckdns.org:8123
-  trusted_networks:
-    - 192.168.1.45
+  base_url: 192.168.1.50:8123
 
-updater:
+logger:
+  default: debug
+  logs:
+    homeassistant.components.discovery: debug
+
 discovery:
-conversation:
-history:
+config:
 logbook:
 sun:
-tts:
-  platform: google
+ios:
+weather:
+  - platform: darksky
+    api_key: {{ darksky_key }}
+    units: ca
 
 media_player:
   - platform: onkyo
     host: 192.168.1.49
     name: receiver
     sources:
-      pc: 'Apple TV'
-      tv-cd: 'Turntable'
-
-  - platform: mpd
-    host: 192.168.1.48
+      tv-cd: 'Apple TV'
+      network: 'Spotify'
+  # - platform: mpd
+  #   host: 192.168.1.50
+  # - platform: snapcast
+  #   host: 192.168.1.50
+  - platform: spotify
+    client_id: {{ hass.spotify_client }}
+    client_secret: {{ hass.spotify_secret }}
+  - platform: braviatv
+    host: 192.168.1.52
 
 ecobee:
   api_key: {{ hass.ecobee_key }}
-
-zwave:
-  usb_path: /dev/ttyACM0
-  config_path: /srv/homeassistant/src/python-openzwave/openzwave/config
 
 camera:
   platform: foscam
@@ -48,7 +51,7 @@ camera:
   username: tylerball
   password: {{ hass.foscam_password }}
 
-input_slider:
+input_number:
   receiver_volume:
     name: Receiver
     initial: 0.25
@@ -65,8 +68,15 @@ ring:
   username: {{ hass.ring_username }}
   password: {{ hass.ring_password }}
 
+cover:
+  - platform: myq
+    username: {{ myq.user }}
+    password: {{ myq.pass }}
+    type: chamberlain
+
+tradfri:
+
 script: !include script.yaml
 automation: !include automation.yaml
-group: !include groups.yaml
+# group: !include groups.yaml
 sensor: !include sensor.yaml
-binary_sensor: !include binary_sensor.yaml

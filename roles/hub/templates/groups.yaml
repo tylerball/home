@@ -24,7 +24,6 @@ living_room:
     - input_slider.receiver_volume
     - script.apple_tv_on
     - media_player.receiver
-    - media_player.plex
 
 bedroom:
   entities:

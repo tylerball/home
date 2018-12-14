@@ -1,5 +1,5 @@
-apple_tv_on:
-  alias: 'Apple TV'
+receiver_spotify:
+  alias: 'Spotify'
   sequence:
     - service: media_player.turn_on
       data:
@@ -7,4 +7,49 @@ apple_tv_on:
     - service: media_player.select_source
       data:
         entity_id: media_player.receiver
-        source: 'pc'
+        source: 'network'
+
+grinch_mode:
+  alias: 'Grinch Mode'
+  sequence:
+    - service: script.receiver_spotify
+    - service: media_player.set_volume
+      data:
+        entity_id: media_player.receiver
+        volume: 0.3
+    - service: media_player.shuffle_set
+      data:
+        entity_id: media_player.spotify
+        shuffle: true
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify
+        media_content_type: playlist
+        media_content_id: 'spotify:user:tyler_ball:playlist:2j3LTdwuTNDyP4MehvverG'
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify
+        source: 'TX-NR414'
+
+music_alarm:
+  alias: 'Music Alarm'
+  sequence:
+    - service: switch.turn_on
+      data:
+        entity_id: switch.tradfri_control_outlet
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify
+        source: 'bedroom'
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.spotify
+        media_content_type: playlist
+        media_content_id: 'spotify:user:tyler_ball:playlist:56Tu9O1MhmmNIZBDWIppUz'
+    - service: media_player.shuffle_set
+      data:
+        entity_id: media_player.spotify
+        shuffle: true
+    - service: media_player.media_play
+      data:
+        entity_id: media_player.spotify

@@ -9,3 +9,9 @@ action:
     data_template:
       entity_id: media_player.receiver
       volume_level: {% raw %}'{{ trigger.to_state.state | float }}'{% endraw %}
+
+trigger:
+  platform: time
+  at: '08:10:00'
+action:
+  service: script.music_alarm

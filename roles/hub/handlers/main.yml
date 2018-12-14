@@ -1,8 +1,14 @@
 - name: restart hass
-  systemd: name=home-assistant@homeassistant.service state=restarted
+  shell: docker restart home-assistant
   become: yes
   tags: copy
 
-- name: restart homebridge
-  systemd: name=homebridge@homeassistant.service state=restarted
+- name: restart mopidy
+  systemd: name=mopidy state=restarted
   become: yes
+  tags: copy
+
+- name: restart icecast
+  systemd: name=icecast2 state=restarted
+  become: yes
+  tags: copy

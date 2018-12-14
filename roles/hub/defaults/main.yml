@@ -1,7 +1,30 @@
 apt_packages:
-  - nodejs
-  - libavahi-compat-libdnssd-dev
+  - python-pip
+  - python3-docker
+  # - nodejs
+  # - libavahi-compat-libdnssd-dev
+  # - mopidy
+  # - mopidy-soundcloud
+  # - mopidy-spotify
+  # - mopidy-youtube
+  # - python3-pafy
+  # # snapcast
+  # - build-essential
+  # - libasound2-dev
+  # - libvorbisidec-dev
+  # - libvorbis-dev
+  # - libflac-dev
+  # - alsa-utils
+  # - libavahi-client-dev
+  # - avahi-daemon
+  # - icecast2
+  # # building gstreamer
+  # - libgtk-3-dev
+  # - libpulse-dev
+  # - libshout3-dev
+  # - python-gtk2-dev
+  # - python-gi-dev
 
-npm_packages:
-  - homebridge
-  - homebridge-homeassistant
+pip_packages:
+  - pafy
+  - youtube-dl

@@ -2,6 +2,8 @@
 - hosts: hub
   roles:
     - hub
+  environment:
+    PYTHONPATH: "{{ lookup('env','PYTHONPATH') }}:/usr/local/lib/python2.7/dist-packages"
 
 - hosts: itunes
   roles:
