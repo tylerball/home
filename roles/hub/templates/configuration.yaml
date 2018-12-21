@@ -8,16 +8,30 @@ homeassistant:
 
 http:
   api_password: '{{ hass.api_password }}'
-  base_url: 192.168.1.50:8123
+  base_url: https://{{ url }}
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - {{ host_ip }}
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
 
-logger:
-  default: debug
-  logs:
-    homeassistant.components.discovery: debug
+frontend: !include frontend.yaml
+lovelace:
+  mode: yaml
+
+folder_watcher:
+  - folder: /config
+    patterns:
+      - '*.yaml'
 
 discovery:
+  ignore:
+    - google_cast
+  enable:
+    - homekit
 config:
 logbook:
+history:
 sun:
 ios:
 weather:
@@ -25,9 +39,15 @@ weather:
     api_key: {{ darksky_key }}
     units: ca
 
+calendar:
+  - platform: caldav
+    username: {{ email }}
+    password: {{ caldav_pass }}
+    url: {{ caldav_url }}
+
 media_player:
   - platform: onkyo
-    host: 192.168.1.49
+    host: {{ receiver_ip }}
     name: receiver
     sources:
       tv-cd: 'Apple TV'
@@ -39,17 +59,21 @@ media_player:
   - platform: spotify
     client_id: {{ hass.spotify_client }}
     client_secret: {{ hass.spotify_secret }}
+    aliases:
+      126a80ef484035c196dd9f39d0c1a2c9e869810c: receiver
+      009e058c883c683e1330228851ecafe3265c8f51: bedroom
   - platform: braviatv
-    host: 192.168.1.52
+    host: {{ tv_ip }}
 
 ecobee:
   api_key: {{ hass.ecobee_key }}
 
 camera:
-  platform: foscam
-  ip: 192.168.1.45
-  username: tylerball
-  password: {{ hass.foscam_password }}
+  - platform: foscam
+    ip: {{ foscam_ip }}
+    username: tylerball
+    password: {{ hass.foscam_password }}
+  - platform: ring
 
 input_number:
   receiver_volume:

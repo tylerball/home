@@ -13,34 +13,43 @@ grinch_mode:
   alias: 'Grinch Mode'
   sequence:
     - service: script.receiver_spotify
-    - service: media_player.set_volume
+    - service: media_player.volume_set
       data:
         entity_id: media_player.receiver
-        volume: 0.3
-    - service: media_player.shuffle_set
-      data:
-        entity_id: media_player.spotify
-        shuffle: true
+        volume_level: 0.35
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify
         media_content_type: playlist
         media_content_id: 'spotify:user:tyler_ball:playlist:2j3LTdwuTNDyP4MehvverG'
+    - service: media_player.shuffle_set
+      data:
+        entity_id: media_player.spotify
+        shuffle: true
+    - service: media_player.media_next_track
+      data:
+        entity_id: media_player.spotify
     - service: media_player.select_source
       data:
         entity_id: media_player.spotify
-        source: 'TX-NR414'
+        source: receiver
+
+burn_it_down:
+  alias: 'Burn it Down'
+  sequence:
+    - service: media_player.media_pause
+      data:
+        entity_id: media_player.spotify
+    - service: media_player.clear_playlist
+      data:
+        entity_id: media_player.spotify
 
 music_alarm:
   alias: 'Music Alarm'
   sequence:
     - service: switch.turn_on
       data:
-        entity_id: switch.tradfri_control_outlet
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.spotify
-        source: 'bedroom'
+        entity_id: switch.bedroom_stereo
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify
@@ -50,6 +59,10 @@ music_alarm:
       data:
         entity_id: media_player.spotify
         shuffle: true
-    - service: media_player.media_play
+    - service: media_player.media_next_track
       data:
         entity_id: media_player.spotify
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.spotify
+        source: bedroom

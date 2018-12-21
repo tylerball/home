@@ -10,10 +10,13 @@
     - volume
 
 - platform: transmission
-  host: 192.168.1.5
+  host: {{ transmission_ip }}
   username: {{ hass.transmission_username }}
   password: {{ hass.transmission_password }}
   monitored_variables:
     - 'current_status'
     - 'download_speed'
     - 'upload_speed'
+
+- platform: discogs
+  token: {{ discogs_token }}

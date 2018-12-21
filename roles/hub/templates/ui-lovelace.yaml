@@ -1,0 +1,81 @@
+title: Davenport
+views:
+  - id: home
+    title: home
+    icon: mdi:home
+    cards:
+      - type: conditional
+        conditions:
+          - entity: cover.garage
+            state: "closed"
+        card:
+          type: entity-button
+          name: Garage Door
+          entity: cover.garage
+          icon: mdi:format-vertical-align-top
+          tap_action:
+            action: call-service
+            service: cover.open_cover
+            service_data:
+              entity_id: cover.garage
+      - type: conditional
+        conditions:
+          - entity: cover.garage
+            state: "open"
+        card:
+          type: entity-button
+          name: Garage Door
+          entity: cover.garage
+          icon: mdi:format-vertical-align-bottom
+          tap_action:
+            action: call-service
+            service: cover.close_cover
+            service_data:
+              entity_id: cover.garage
+
+      - type: vertical-stack
+        cards:
+        - type: iframe
+          url: https://embed.windy.com/embed2.html?lat=42.310&lon=-79.453&zoom=6&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=43.689&detailLon=-79.451&metricWind=default&metricTemp=default&radarRange=-1
+          title: Weather radar
+        - type: weather-forecast
+          entity: weather.dark_sky
+
+      - type: vertical-stack
+        cards:
+        - type: thermostat
+          entity: climate.home
+        - type: sensor
+          entity: sensor.home_temperature
+          name: Home Temperature
+          graph: line
+
+      - type: picture-entity
+        entity: camera.front_door
+        name: Front Door
+      - type: picture-entity
+        entity: camera.foscam_camera
+        name: RiverCam
+
+  - id: media
+    title: media
+    icon: mdi:music
+    cards:
+      - type: media-control
+        entity: media_player.spotify
+
+      - type: entities
+        entities:
+          - entity: media_player.receiver
+            name: Receiver
+          - entity: media_player.sony_bravia_tv
+            name: TV
+          - entity: switch.bedroom_stereo
+            name: Bedroom On/Off
+            icon: mdi:power
+          - entity: media_player.bedroom
+            name: Bedroom
+          - entity: media_player.office
+            name: Office
+          - entity: media_player.garage
+            name: Garage
