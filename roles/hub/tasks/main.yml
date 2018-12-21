@@ -7,7 +7,6 @@
   args:
     creates: /usr/local/lib/python2.7/dist-packages/docker
   become: yes
-  tags: debug
 
 - shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
   args:
@@ -29,6 +28,34 @@
   become: yes
 
 - file:
+    path: docker
+    state: directory
+
+- template:
+    src: docker-compose.yml
+    dest: docker/docker-compose.yml
+  tags: copy
+
+- file:
+    path: traefik
+    state: directory
+
+- template:
+    src: traefik.toml
+    dest: traefik/traefik.toml
+  tags: copy
+
+- file:
+    path: traefik/acme
+    state: directory
+
+- file:
+    path: traefik/acme/acme.json
+    state: touch
+    mode: 0600
+  become: yes
+
+- file:
     path: .homeassistant
     state: directory
 
@@ -41,18 +68,11 @@
     dest: .homeassistant/{{ item | basename }}
   with_fileglob:
     - ../templates/*.yaml
-  notify:
-    - restart hass
   tags: copy
 
-- docker_container:
-    name: home-assistant
-    image: homeassistant/home-assistant:latest
-    volumes:
-      - "/home/tball/.homeassistant:/config"
-      - /etc/localtime:/etc/localtime:ro
-    restart_policy: unless-stopped
-    network_mode: host
+- name: docker-compose
+  docker_service:
+    project_src: docker
   become: yes
 
 - template:

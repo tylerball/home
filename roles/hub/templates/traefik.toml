@@ -1,0 +1,39 @@
+InsecureSkipVerify = true
+defaultEntryPoints = ["https", "http"]
+
+[entryPoints]
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+  [entryPoints.http]
+  address = ":80"
+    [entryPoints.http.redirect]
+    entryPoint = "https"
+
+[acme]
+email = "{{ email }}"
+storage = "/etc/traefik/acme/acme.json"
+entryPoint = "https"
+acmeLogging=true
+onDemand = false
+[acme.dnsChallenge]
+  provider = "linode"
+  delayBeforeCheck = 0
+[[acme.domains]]
+  main = "{{ url }}"
+[[acme.domains]]
+  main = "*.{{ url }}"
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "{{ url }}"
+exposedByDefault = false
+watch = true
+
+[api]
+  entryPoint = "traefik"
+  dashboard = true
+  address = ":8080"
+
+[accessLog]
+  filePath = "/etc/traefik/access.log"

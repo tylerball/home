@@ -28,3 +28,4 @@ apt_packages:
 pip_packages:
   - pafy
   - youtube-dl
+  - docker-compose

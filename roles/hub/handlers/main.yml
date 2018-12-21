@@ -1,8 +1,3 @@
-- name: restart hass
-  shell: docker restart home-assistant
-  become: yes
-  tags: copy
-
 - name: restart mopidy
   systemd: name=mopidy state=restarted
   become: yes
