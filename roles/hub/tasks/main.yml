@@ -63,6 +63,26 @@
     path: .homeassistant/known_devices.yaml
     state: touch
 
+- file:
+    path: .homeassistant/custom_components
+    state: directory
+
+- file:
+    path: .homeassistant/custom_components/media_player
+    state: directory
+
+- template:
+    src: airfoil.py
+    dest: .homeassistant/custom_components/media_player/airfoil.py
+
+- template:
+    src: '{{ item }}'
+    dest: '.homeassistant/{{ item }}'
+  with_items:
+    - caseta.key
+    - caseta.crt
+    - caseta-bridge.crt
+
 - template:
     src: '{{ item }}'
     dest: .homeassistant/{{ item | basename }}

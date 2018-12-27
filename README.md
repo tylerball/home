@@ -4,17 +4,17 @@ all my home automation configs, based on [home assistant][hass].
 
 ## setting up the hub
 
-1. Download and install [Hassbian][hassbian]. I run it on a Raspberry Pi 3.
-1. Clone a fresh copy of [hassbian-scripts][hassbian-scripts] and run the
-   scripts for installing homeassistant and zwave.
+1. Install Ubuntu on something and specify that you want it to be a docker host during installation.
+1. Edit `hosts.cfg` to target said machine.
+1. On the machine, Create docker networks:
 
-        ./hassbian-scripts/install_openzwave.sh
-
-1. Be sure to set a NetworkKey in
-   `/srv/homeassistant/src/python-openzwave/openzwave/config/options.xml`, which
-   you can generate with:
-
-        cat /dev/urandom | tr -dc '0-9A-F' | fold -w 32 | head -n 1 | sed -e 's/\(..\)/0x\1, /g'
+        sudo docker network create traefik_proxy
+        docker network create \
+            -d macvlan \
+            --subnet=192.168.1.0/24 \
+            --gateway=192.168.1.1 \
+            -o parent=enp2s0 \
+            mylan
 
 1. Run ansible to copy the configs to the hub and install necessary software,
    including [homebridge][homebridge].

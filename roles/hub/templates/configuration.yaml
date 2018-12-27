@@ -5,6 +5,8 @@ homeassistant:
   elevation: 101
   unit_system: metric
   time_zone: America/Toronto
+  whitelist_external_dirs:
+    - /config
 
 http:
   api_password: '{{ hass.api_password }}'
@@ -64,6 +66,8 @@ media_player:
       009e058c883c683e1330228851ecafe3265c8f51: bedroom
   - platform: braviatv
     host: {{ tv_ip }}
+  - platform: airfoil
+    host: {{ twombly_ip }}
 
 ecobee:
   api_key: {{ hass.ecobee_key }}
@@ -98,7 +102,11 @@ cover:
     password: {{ myq.pass }}
     type: chamberlain
 
-tradfri:
+lutron_caseta:
+  host: {{ lutron_ip }}
+  keyfile: caseta.key
+  certfile: caseta.crt
+  ca_certs: caseta-bridge.crt
 
 script: !include script.yaml
 automation: !include automation.yaml
