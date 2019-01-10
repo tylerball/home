@@ -1,0 +1,20 @@
+- platform: rest_status
+  name: Bedroom Speakers
+  resource: !secret bedroom_speaker_url
+  method: PUT
+  body_on: '{"selected": true}'
+  body_off: '{"selected": false}'
+  is_on_template: '{{ value_json.selected }}'
+  scan_interval: 5
+  success_code: 204
+
+
+- platform: rest_status
+  name: Office Speakers
+  resource: !secret office_speaker_url
+  method: PUT
+  body_on: '{"selected": true}'
+  body_off: '{"selected": false}'
+  is_on_template: '{{ value_json.selected }}'
+  scan_interval: 5
+  success_code: 204

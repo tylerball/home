@@ -59,23 +59,38 @@ views:
 
   - id: media
     title: media
-    icon: mdi:music
+    icon: mdi:speaker
     cards:
-      - type: media-control
-        entity: media_player.spotify
+      - type: conditional
+        conditions:
+          - entity: media_player.spotify
+            state: "playing"
+        card:
+          type: media-control
+          entity: media_player.spotify
+      - type: conditional
+        conditions:
+          - entity: media_player.spotify
+            state_not: "playing"
+        card:
+          type: media-control
+          entity: media_player.mpd
 
-      - type: entities
+      - card:
+        type: entities
+        title: Speakers
+        show_header_toggle: false
+        column_width: 50%
         entities:
-          - entity: media_player.receiver
-            name: Receiver
-          - entity: media_player.sony_bravia_tv
-            name: TV
-          - entity: switch.bedroom_stereo
-            name: Bedroom On/Off
-            icon: mdi:power
-          - entity: media_player.bedroom
+          - entity: switch.bedroom_speakers
             name: Bedroom
-          - entity: media_player.office
+            icon: mdi:airplay
+            tap_action: toggle
+          - entity: input_number.bedroom_volume
+            name: Bedroom Volume
+
+          - entity: switch.office_speakers
             name: Office
-          - entity: media_player.garage
-            name: Garage
+            tap_action: toggle
+          - entity: input_number.office_volume
+            name: Office Volume

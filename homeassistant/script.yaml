@@ -48,8 +48,9 @@ music_alarm:
   alias: 'Music Alarm'
   sequence:
     - service: switch.turn_on
-      data:
-        entity_id: switch.bedroom_stereo
+      entity_id: switch.bedroom_speakers
+    - service: switch.turn_on
+      entity_id: switch.bedroom_volume
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify
@@ -65,4 +66,4 @@ music_alarm:
     - service: media_player.select_source
       data:
         entity_id: media_player.spotify
-        source: bedroom
+        source: home

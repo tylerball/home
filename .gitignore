@@ -1,0 +1,14 @@
+*.env
+*.crt
+*.key
+*.log
+*.db
+
+traefik/acme
+
+homeassistant/.storage
+homeassistant/.spotify-token-cache
+homeassistant/deps
+homeassistant/ecobee.conf
+homeassistant/bravia.conf
+homeassistant/secrets.yaml

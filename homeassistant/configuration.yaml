@@ -1,7 +1,7 @@
 homeassistant:
   name: Davenport
-  latitude: {{ hass.latitude }}
-  longitude: {{ hass.longitude }}
+  latitude: !secret latitude
+  longitude: !secret longitude
   elevation: 101
   unit_system: metric
   time_zone: America/Toronto
@@ -9,11 +9,11 @@ homeassistant:
     - /config
 
 http:
-  api_password: '{{ hass.api_password }}'
-  base_url: https://{{ url }}
+  api_password: !secret api_password
+  base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies:
-    - {{ host_ip }}
+    - !secret host_ip
   ip_ban_enabled: true
   login_attempts_threshold: 5
 
@@ -38,77 +38,82 @@ sun:
 ios:
 weather:
   - platform: darksky
-    api_key: {{ darksky_key }}
+    api_key: !secret darksky_key
     units: ca
 
 calendar:
   - platform: caldav
-    username: {{ email }}
-    password: {{ caldav_pass }}
-    url: {{ caldav_url }}
+    username: !seret email
+    password: !secret caldav_password
+    url: !secret caldav_url
 
 media_player:
   - platform: onkyo
-    host: {{ receiver_ip }}
+    host: !secret receiver_ip
     name: receiver
     sources:
       tv-cd: 'Apple TV'
       network: 'Spotify'
-  # - platform: mpd
-  #   host: 192.168.1.50
-  # - platform: snapcast
-  #   host: 192.168.1.50
   - platform: spotify
-    client_id: {{ hass.spotify_client }}
-    client_secret: {{ hass.spotify_secret }}
+    client_id: !secret spotify_client_id
+    client_secret: !secret spotify_client_secret
     aliases:
+      70f8bb9a8a5393ef080507a89e4b98d139000d65: home
       126a80ef484035c196dd9f39d0c1a2c9e869810c: receiver
       009e058c883c683e1330228851ecafe3265c8f51: bedroom
   - platform: braviatv
-    host: {{ tv_ip }}
-  - platform: airfoil
-    host: {{ twombly_ip }}
+    host: !secret bravia_ip
+  - platform: mpd
+    host: !secret host_ip
 
 ecobee:
-  api_key: {{ hass.ecobee_key }}
+  api_key: !secret ecobee_api_key
 
 camera:
   - platform: foscam
-    ip: {{ foscam_ip }}
+    ip: !secret foscam_ip
     username: tylerball
-    password: {{ hass.foscam_password }}
+    password: !secret foscam_password
   - platform: ring
-
-input_number:
-  receiver_volume:
-    name: Receiver
-    initial: 0.25
-    min: 0
-    max: 1
-    step: 0.05
 
 notify:
   - platform: pushover
-    api_key: {{ hass.pushover_api_key }}
-    user_key: {{ hass.pushover_user_key }}
+    api_key: !secret pushover_api_key
+    user_key: !secret pushover_user_key
 
 ring:
-  username: {{ hass.ring_username }}
-  password: {{ hass.ring_password }}
+  username: !secret email
+  password: !secret ring_password
 
 cover:
   - platform: myq
-    username: {{ myq.user }}
-    password: {{ myq.pass }}
+    username: !secret email
+    password: !secret myq_password
     type: chamberlain
 
 lutron_caseta:
-  host: {{ lutron_ip }}
+  host: !secret caseta_ip
   keyfile: caseta.key
   certfile: caseta.crt
   ca_certs: caseta-bridge.crt
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.media_player.spotify: debug
+    homeassistant.components.tradfri: debug
+    homeassistant.components.calendar: debug
+
+input_datetime:
+  alarm:
+    name: Music Wake Up
+    has_date: false
+    has_time: true
+    initial: '08:15'
 
 script: !include script.yaml
 automation: !include automation.yaml
 # group: !include groups.yaml
 sensor: !include sensor.yaml
+switch: !include switches.yaml
+input_number: !include input_number.yaml

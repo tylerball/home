@@ -5,7 +5,7 @@ services:
     hostname: traefik
     image: traefik:latest
     container_name: traefik
-    domainname: {{ url }}
+    domainname: 2030davenport.com
     networks:
       - local
       - traefik_proxy
@@ -13,16 +13,15 @@ services:
       - 80:80
       - 443:443
       - 8080:8080
-    environment:
-      - "LINODE_API_KEY={{ linode_api_key }}"
-      - TZ=America/Toronto
+    env_file:
+      - ./traefik.env
     volumes:
-      - "/home/tball/traefik:/etc/traefik"
+      - ./traefik:/etc/traefik
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       - traefik.enable=true
       - traefik.backend=traefik
-      - traefik.frontend.rule=Host:traefik.{{ url }}
+      - traefik.frontend.rule=Host:traefik.2030davenport.com
       - traefik.port=8080
       - traefik.docker.network=traefik_proxy
       - traefik.frontend.headers.SSLRedirect=true
@@ -30,23 +29,24 @@ services:
       - traefik.frontend.headers.browserXSSFilter=true
       - traefik.frontend.headers.contentTypeNosniff=true
       - traefik.frontend.headers.forceSTSHeader=true
-      - traefik.frontend.headers.SSLHost={{ url }}
+      - traefik.frontend.headers.SSLHost=2030davenport.com
       - traefik.frontend.headers.STSIncludeSubdomains=true
       - traefik.frontend.headers.STSPreload=true
       - traefik.frontend.headers.frameDeny=true
     restart: always
+
   homeassistant:
     container_name: home-assistant
     image: homeassistant/home-assistant:latest
     depends_on:
       - traefik
     volumes:
-      - "/home/tball/.homeassistant:/config"
+      - ./homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
     labels:
       - traefik.enable=true
       - traefik.backend=homeassistant
-      - traefik.frontend.rule=Host:{{ url }}
+      - traefik.frontend.rule=Host:2030davenport.com
       - traefik.port=8123
       - traefik.docker.network=traefik_proxy
       - traefik.frontend.headers.SSLRedirect=true
@@ -54,7 +54,7 @@ services:
       - traefik.frontend.headers.browserXSSFilter=true
       - traefik.frontend.headers.contentTypeNosniff=true
       - traefik.frontend.headers.forceSTSHeader=true
-      - traefik.frontend.headers.SSLHost={{ url }}
+      - traefik.frontend.headers.SSLHost=2030davenport.com
       - traefik.frontend.headers.STSIncludeSubdomains=true
       - traefik.frontend.headers.STSPreload=true
       - traefik.frontend.headers.frameDeny=true
@@ -66,6 +66,7 @@ services:
     environment:
       - TZ=America/Toronto
     restart: unless-stopped
+
 networks:
   traefik_proxy:
     external:

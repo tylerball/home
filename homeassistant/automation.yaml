@@ -1,0 +1,28 @@
+- alias: config changed
+  trigger:
+    platform: event
+    event_type: folder_watcher
+    event_data:
+      event_type: changed
+  action:
+    service: homeassistant.restart
+
+- alias: Receiver Volume
+  trigger:
+    platform: state
+    entity_id: input_slider.receiver_volume
+  action:
+    - service: media_player.turn_on
+      entity_id: media_player.receiver
+    - service: media_player.volume_set
+      data_template:
+        entity_id: media_player.receiver
+        volume_level: '{{ trigger.to_state.state | float }}'
+
+- alias: Music Alarm
+  trigger:
+    platform: template
+    value_template: '{{ states.sensor.time.state == (states.input_datetime.alarm.attributes.timestamp | int | timestamp_custom("%H:%M", False)) }}'
+  action:
+    - service: script.music_alarm
+

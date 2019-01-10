@@ -1,0 +1,38 @@
+- platform: yr
+- platform: ring
+  username: tyler@tylerball.net
+  password: !secret ring_password
+  monitored_conditions:
+    - battery
+    - last_activity
+    - last_ding
+    - last_motion
+    - volume
+
+- platform: transmission
+  host: !secret transmission_ip
+  username: admin
+  password: !secret transmission_password
+  monitored_variables:
+    - 'current_status'
+    - 'download_speed'
+    - 'upload_speed'
+
+- platform: discogs
+  token: !secret discogs_token
+
+- platform: rest
+  name: Bedroom Volume
+  resource: !secret bedroom_speaker_url
+  method: GET
+  json_attributes: ["id","name","selected","volume"]
+  value_template: "{{ value_json.volume }}"
+  scan_interval: 10
+
+- platform: rest
+  name: Office Volume
+  resource: !secret office_speaker_url
+  method: GET
+  json_attributes: ["id","name","selected","volume"]
+  value_template: "{{ value_json.volume }}"
+  scan_interval: 10
