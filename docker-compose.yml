@@ -67,6 +67,21 @@ services:
       - TZ=America/Toronto
     restart: unless-stopped
 
+  syncthing:
+    container_name: syncthing
+    image: linuxserver/syncthing
+    volumes:
+      - ./syncthing:/config
+      - /mnt/pool:/mnt
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - UMASK_SET=022
+    ports:
+      - 8384:8384
+      - 22000:22000
+      - 21027:21027/udp
+
 networks:
   traefik_proxy:
     external:
