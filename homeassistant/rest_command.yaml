@@ -1,0 +1,12 @@
+set_bedroom_volume:
+  url: !secret bedroom_speaker_url
+  method: PUT
+  payload: '{"volume" : {{ states.input_number.bedroom_volume_slider.state|round }} }'
+set_office_volume:
+  url: !secret office_speaker_url
+  method: PUT
+  payload: '{"volume" : {{ states.input_number.office_volume_slider.state|round }} }'
+set_kitchen_volume:
+  url: !secret kitchen_speaker_url
+  method: PUT
+  payload: '{"volume" : 100 }'

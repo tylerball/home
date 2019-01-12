@@ -49,21 +49,14 @@ music_alarm:
   sequence:
     - service: switch.turn_on
       entity_id: switch.bedroom_speakers
-    - service: switch.turn_on
-      entity_id: switch.bedroom_volume
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.spotify
-        media_content_type: playlist
-        media_content_id: 'spotify:user:tyler_ball:playlist:56Tu9O1MhmmNIZBDWIppUz'
+    - service: media_player.clear_playlist
+      entity_id: media_player.mpd
     - service: media_player.shuffle_set
       data:
-        entity_id: media_player.spotify
+        entity_id: media_player.mpd
         shuffle: true
-    - service: media_player.media_next_track
+    - service: media_player.play_media
       data:
-        entity_id: media_player.spotify
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.spotify
-        source: home
+        entity_id: media_player.mpd
+        media_content_type: playlist
+        media_content_id: 'file:/mnt/pool/tunes/alarm'

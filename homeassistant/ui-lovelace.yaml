@@ -82,6 +82,12 @@ views:
         show_header_toggle: false
         column_width: 50%
         entities:
+          - entity: switch.living_room_speakers
+            name: Living Room
+            tap_action: toggle
+          - entity: input_number.receiver_volume
+            name: Living Room Volume
+
           - entity: switch.bedroom_speakers
             name: Bedroom
             icon: mdi:airplay
@@ -94,3 +100,16 @@ views:
             tap_action: toggle
           - entity: input_number.office_volume
             name: Office Volume
+
+          - entity: switch.kitchen_speakers
+            name: Kitchen
+            tap_action: toggle
+
+  - id: library
+    title: library
+    icon: mdi:music
+    panel: true
+    cards:
+      - type: iframe
+        url: http://192.168.1.50:3689
+

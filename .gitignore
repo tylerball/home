@@ -12,3 +12,8 @@ homeassistant/deps
 homeassistant/ecobee.conf
 homeassistant/bravia.conf
 homeassistant/secrets.yaml
+homeassistant/*.pickle
+homeassistant/.HA_VERSION
+homeassistant/.ios.conf
+
+syncthing/*

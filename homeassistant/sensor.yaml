@@ -1,6 +1,7 @@
+- platform: time_date
 - platform: yr
 - platform: ring
-  username: tyler@tylerball.net
+  username: !secret email
   password: !secret ring_password
   monitored_conditions:
     - battery
@@ -32,6 +33,14 @@
 - platform: rest
   name: Office Volume
   resource: !secret office_speaker_url
+  method: GET
+  json_attributes: ["id","name","selected","volume"]
+  value_template: "{{ value_json.volume }}"
+  scan_interval: 10
+
+- platform: rest
+  name: Living Room Volume
+  resource: !secret living_room_speaker_url
   method: GET
   json_attributes: ["id","name","selected","volume"]
   value_template: "{{ value_json.volume }}"

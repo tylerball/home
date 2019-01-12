@@ -12,7 +12,6 @@ office_volume:
 
 receiver_volume:
   name: Receiver
-  initial: 0.25
   min: 0
   max: 1
   step: 0.05

@@ -67,6 +67,25 @@ services:
       - TZ=America/Toronto
     restart: unless-stopped
 
+  librespot:
+    container_name: spotify
+    restart: always
+    build: librespot
+    volumes:
+      - /mnt/pool/tunes/spotify:/data
+    env_file:
+      - ./librespot.env
+
+  shairport:
+    container_name: shairport
+    image: kevineye/shairport-sync
+    network_mode: host
+    volumes:
+      - /mnt/pool/tunes/airplay:/output
+    environment:
+      - AIRPLAY_NAME=Home
+    command: -o pipe -- /output
+
   syncthing:
     container_name: syncthing
     image: linuxserver/syncthing

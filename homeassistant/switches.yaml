@@ -8,6 +8,25 @@
   scan_interval: 5
   success_code: 204
 
+- platform: rest_status
+  name: Living Room Speakers
+  resource: !secret living_room_speaker_url
+  method: PUT
+  body_on: '{"selected": true, "volume": 100}'
+  body_off: '{"selected": false}'
+  is_on_template: '{{ value_json.selected }}'
+  scan_interval: 5
+  success_code: 204
+
+- platform: rest_status
+  name: Kitchen Speakers
+  resource: !secret kitchen_speaker_url
+  method: PUT
+  body_on: '{"selected": true}'
+  body_off: '{"selected": false}'
+  is_on_template: '{{ value_json.selected }}'
+  scan_interval: 5
+  success_code: 204
 
 - platform: rest_status
   name: Office Speakers
