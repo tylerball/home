@@ -67,7 +67,7 @@ services:
       - TZ=America/Toronto
     restart: unless-stopped
 
-  librespot:
+  spotify:
     container_name: spotify
     restart: always
     build: librespot
@@ -82,9 +82,11 @@ services:
     network_mode: host
     volumes:
       - /mnt/pool/tunes/airplay:/output
+      - /mnt/pool/tunes/airplay.metadata:/tmp/shairport-sync-metadata
     environment:
       - AIRPLAY_NAME=Home
-    command: -o pipe -- /output
+    command: --metadata-pipename=/tmp/shairport-sync-metadata -o pipe -- /output
+
 
   syncthing:
     container_name: syncthing
