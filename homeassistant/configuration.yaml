@@ -104,6 +104,20 @@ logger:
     homeassistant.components.media_player.spotify: debug
     homeassistant.components.tradfri: debug
     homeassistant.components.calendar: debug
+    homeassistant.components.unifi: debug
+    homeassistant.components.switch.unifi: debug
+
+device_tracker:
+  - platform: unifi
+    host: !secret unifi_ip
+    port: 8443
+    verify_ssl: false
+    username: !secret unifi_username
+    password: !secret unifi_password
+    site_id: !secret unifi_site
+    new_device_defaults:
+      track_new_devices: true
+      hide_if_away: false
 
 input_datetime:
   alarm:

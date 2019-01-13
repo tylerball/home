@@ -88,3 +88,33 @@
   action:
     - service: script.music_alarm
 
+- alias: Out late
+  condition:
+    condition: time
+    after: '01:00:00'
+    before: '06:00:00'
+  trigger:
+    platform: state
+    entity_id: device_tracker.tylers_phone, device_tracker.jens_phone
+    from: 'home'
+    to: 'not_home'
+  action:
+    - service: light.turn_on
+      data:
+        entity_id: light.porch_light
+        brightness: 10
+
+- alias: Return late
+  condition:
+    condition: time
+    after: '01:00:00'
+    before: '06:00:00'
+  trigger:
+    platform: state
+    entity_id: device_tracker.tylers_phone, device_tracker.jens_phone
+    from: 'not_home'
+    to: 'home'
+  action:
+    - delay: 0:30
+    - service: light.turn_off
+      entity_id: light.porch_light
