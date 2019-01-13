@@ -92,6 +92,7 @@ services:
     container_name: syncthing
     image: linuxserver/syncthing
     volumes:
+      - ./:/homebackup
       - ./syncthing:/config
       - /mnt/pool:/mnt
     environment:
