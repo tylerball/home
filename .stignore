@@ -1,3 +1,4 @@
+.git
 *.db-shm
 *.db-wal
 
