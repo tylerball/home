@@ -71,6 +71,8 @@ services:
     container_name: spotify
     restart: always
     build: librespot
+    depends_on:
+      - daapd
     volumes:
       - /mnt/pool/tunes/spotify:/data
     env_file:
@@ -80,6 +82,8 @@ services:
     container_name: shairport
     image: kevineye/shairport-sync
     network_mode: host
+    depends_on:
+      - daapd
     volumes:
       - /mnt/pool/tunes/airplay:/output
       - /mnt/pool/tunes/airplay.metadata:/tmp/shairport-sync-metadata
@@ -87,6 +91,18 @@ services:
       - AIRPLAY_NAME=Home
     command: --metadata-pipename=/tmp/shairport-sync-metadata -o pipe -- /output
 
+  daapd:
+    container_name: daapd
+    build: daapd
+    network_mode: host
+    ports:
+      - 3689:3689
+      - 6600:6600
+    volumes:
+      - /mnt/pool/tunes:/mnt/pool/tunes:ro
+    environment:
+      - MEDIA_SERVER_NAME=Home
+      - PUID=1000
 
   syncthing:
     container_name: syncthing

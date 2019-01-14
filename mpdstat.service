@@ -1,0 +1,15 @@
+[Unit]
+Description=Collect stats from MPD for beets
+After=forked-daapd.service
+
+[Service]
+User=tball
+ExecStart=/usr/local/bin/beet mpdstats
+
+# Restart, but not more than once every 10 minutes
+Restart=on-failure
+StartLimitBurst=2
+StartLimitInterval=60
+
+[Install]
+WantedBy=multi-user.target
