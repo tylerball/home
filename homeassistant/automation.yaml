@@ -76,6 +76,22 @@
         entity_id: media_player.receiver
         source: Apple TV
 
+- alias: Sunset
+  trigger:
+    platform: sun
+    event: sunset
+    offset: "-00:30:00"
+  action:
+    service: scene.turn_on
+    entity_id: scene.sunset
+
+- alias: Good Night
+  trigger:
+    platform: time
+    at: '01:00:00'
+  action:
+    service: scene.turn_on
+    entity_id: scene.good_night
 
 - alias: Music Alarm
   condition:

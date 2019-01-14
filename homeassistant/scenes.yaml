@@ -1,0 +1,13 @@
+- name: Sunset
+  entities:
+    light.living_room_lamp: true
+    light.living_room_living_room_nook_lights:
+      state: true
+      brightness: 180
+    light.porch_light:
+      state: true
+      brightness: 10
+
+- name: Good Night
+  entities:
+    group.all_lights: false

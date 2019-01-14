@@ -126,6 +126,7 @@ input_datetime:
     has_time: true
     initial: '08:15'
 
+scene: !include scenes.yaml
 script: !include script.yaml
 automation: !include automation.yaml
 # group: !include groups.yaml
