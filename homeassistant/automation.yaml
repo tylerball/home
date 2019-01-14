@@ -135,3 +135,12 @@
     - delay: 0:30
     - service: light.turn_off
       entity_id: light.porch_light
+
+- name: Sunrise
+  trigger:
+    platform: sun
+    event: sunrise
+    offset: "-00:30:00"
+  action:
+    service: scene.turn_on
+    entity_id: scene.good_night
