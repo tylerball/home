@@ -75,6 +75,7 @@
       data:
         entity_id: media_player.receiver
         source: Apple TV
+    - service: rest_command.set_living_room_volume
 
 - alias: Sunset
   trigger:
