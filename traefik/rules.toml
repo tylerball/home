@@ -6,10 +6,22 @@
   [frontends.frontend-daapd.routes]
   [frontends.frontend-daapd.routes.route-daapd-ext]
   rule = "Host:daapd.2030davenport.com"
+  [frontends.frontend-daapd-ws]
+  entrypoints = ["ws"]
+  backend = "backend-daapd-ws"
+  passHostHeader = true
+  InsecureSkipVerify = true
+  [frontends.frontend-daapd-ws.routes.route-daapd-ext-ws]
+  rule = "Host:daapd.2030davenport.com"
 
 [backends]
   [backends.backend-daapd]
   [backends.backend-daapd.servers]
   [backends.backend-daapd.servers.server-daapd-ext]
   url = "http://192.168.1.50:3689"
+  weight = 0
+  [backends.backend-daapd-ws]
+  [backends.backend-daapd-ws.servers]
+  [backends.backend-daapd-ws.servers.server-daapd-ext-ws]
+  url = "http://192.168.1.50:3687"
   weight = 0
