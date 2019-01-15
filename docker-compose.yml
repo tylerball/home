@@ -120,6 +120,15 @@ services:
       - 22000:22000
       - 21027:21027/udp
 
+  soulseek:
+    container_name: soulseek
+    image: danielguerra/soulseek
+    volumes:
+      - /mnt/pool/tunes:/home/soulseek/Music
+      - /mnt/pool/downloads:/home/soulseek/Soulseek Downloads/complete
+    ports:
+      - 5900:5900
+
 networks:
   traefik_proxy:
     external:
