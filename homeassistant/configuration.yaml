@@ -120,16 +120,20 @@ device_tracker:
       hide_if_away: false
 
 input_datetime:
-  alarm:
+  music_alarm:
     name: Music Wake Up
     has_date: false
     has_time: true
     initial: '08:15'
+  light_alarm:
+    name: Light alarm
+    has_date: false
+    has_time: true
+    initial: '06:00'
 
 scene: !include scenes.yaml
 script: !include script.yaml
 automation: !include automation.yaml
-# group: !include groups.yaml
 sensor: !include sensor.yaml
 binary_sensor: !include binary_sensors.yaml
 switch: !include switches.yaml

@@ -16,7 +16,7 @@ grinch_mode:
     - service: media_player.volume_set
       data:
         entity_id: media_player.receiver
-        volume_level: 0.35
+        volume_level: '0.35'
     - service: media_player.play_media
       data:
         entity_id: media_player.spotify
@@ -49,6 +49,10 @@ music_alarm:
   sequence:
     - service: switch.turn_on
       entity_id: switch.bedroom_speakers
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.bedroom_volume
+        value: 30
     - service: media_player.clear_playlist
       entity_id: media_player.mpd
     - service: media_player.shuffle_set
@@ -60,3 +64,17 @@ music_alarm:
         entity_id: media_player.mpd
         media_content_type: playlist
         media_content_id: 'file:/mnt/pool/tunes/alarm'
+    - service: light.turn_on
+      data:
+        entity_id: light.tylers_light
+        brightness: 200
+        transition: 6000
+
+light_alarm:
+  alias: 'Light alarm'
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.jens_light
+        brightness: 200
+        transition: 6000
