@@ -53,9 +53,14 @@ views:
       - type: picture-entity
         entity: camera.front_door
         name: Front Door
-      - type: picture-entity
-        entity: camera.foscam_camera
-        name: RiverCam
+      - type: conditional
+        conditions:
+          - entity: device_tracker.tylers_phone, device_tracker.jens_phone
+            state: 'not_home'
+        card:
+          type: picture-entity
+          entity: camera.foscam_camera
+          name: RiverCam
 
   - id: alarms
     title: alarms

@@ -33,3 +33,15 @@ bedroom:
 garage:
   entities:
     - camera.foscam_camera
+
+device_trackers:
+  entities:
+    - device_tracker.tylers_phone
+    - device_tracker.jens_phone
+
+occupancy_sensors:
+  entities:
+    - binary_sensor.home_occupancy
+    - binary_sensor.kitchen_occupancy
+    - binary_sensor.office_occupancy
+    - binary_sensor.bedroom_occupancy

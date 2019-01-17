@@ -181,3 +181,34 @@
   action:
     service: scene.turn_on
     entity_id: scene.good_night
+
+- alias: Ecobee away
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    state: 'not_home'
+    for:
+      hours: 1
+      minutes: 0
+  condition:
+    - condition: template
+      value_template: "{{ states('group.occupancy_sensors') == 'off' }}"
+  action:
+    service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: true
+
+- alias: Ecobee home
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    state: 'home'
+    for:
+      minutes: 20
+  action:
+    service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: false
+
