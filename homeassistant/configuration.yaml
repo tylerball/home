@@ -139,4 +139,5 @@ binary_sensor: !include binary_sensors.yaml
 switch: !include switches.yaml
 input_number: !include input_number.yaml
 rest_command: !include rest_command.yaml
+shell_command: !include shell_commands.yaml
 groups: !include groups.yaml

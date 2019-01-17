@@ -45,3 +45,13 @@
   json_attributes: ["id","name","selected","volume"]
   value_template: "{{ value_json.volume }}"
   scan_interval: 10
+
+- platform: file
+  name: Discogs Item Image
+  file_path: /config/discogs.json
+  value_template: '{{ value_json.images[0].uri }}'
+
+- platform: file
+  name: Discogs Item Desc
+  file_path: /config/discogs.json
+  value_template: '{{ value_json.artists[0].name }} — {{ value_json.title }}'

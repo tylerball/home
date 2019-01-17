@@ -1,0 +1,3 @@
+discogs_random_json: curl "https://api.discogs.com/releases/$(cat /config/discogs_id.txt)?token=$(cat /config/discogs_token.txt)" > /config/discogs.json
+
+discogs_random_release: curl -I https://www.discogs.com/user/tylerball/collection/random | grep -Fi Location | sed -r 's/.*release\/(.*)/\1/' | tr '\r' '\0' > /config/discogs_id.txt

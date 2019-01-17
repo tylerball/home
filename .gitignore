@@ -16,5 +16,6 @@ homeassistant/*.pickle
 homeassistant/.HA_VERSION
 homeassistant/.ios.conf
 homeassistant/known_devices.yaml
+homeassistant/discogs*
 
 syncthing/*

@@ -1,3 +1,6 @@
+resources:
+  - url: /local/discogs-card.js
+    type: js
 title: Davenport
 views:
   - id: home
@@ -80,7 +83,6 @@ views:
           - entity: input_datetime.light_alarm
           - entity: automation.light_alarm
 
-
   - id: media
     title: media
     icon: mdi:speaker
@@ -129,6 +131,8 @@ views:
             name: Kitchen
             tap_action: toggle
 
+      - type: 'custom:discogs-card'
+
   - id: library
     title: library
     icon: mdi:music
@@ -136,4 +140,3 @@ views:
     cards:
       - type: iframe
         url: http://192.168.1.50:3689
-
