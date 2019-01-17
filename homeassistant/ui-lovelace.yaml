@@ -56,9 +56,10 @@ views:
       - type: picture-entity
         entity: camera.front_door
         name: Front Door
+
       - type: conditional
         conditions:
-          - entity: device_tracker.tylers_phone, device_tracker.jens_phone
+          - entity: group.device_trackers
             state: 'not_home'
         card:
           type: picture-entity
