@@ -100,6 +100,7 @@ services:
       - 6600:6600
     volumes:
       - /mnt/pool/tunes:/mnt/pool/tunes:ro
+      - ./daapd/forked-daapd.conf:/etc/forked-daapd.conf
     environment:
       - MEDIA_SERVER_NAME=Home
       - PUID=1000

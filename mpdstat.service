@@ -8,8 +8,8 @@ ExecStart=/usr/local/bin/beet mpdstats
 
 # Restart, but not more than once every 10 minutes
 Restart=on-failure
-StartLimitBurst=2
-StartLimitInterval=60
+StartLimitBurst=0
+StartLimitInterval=120
 
 [Install]
 WantedBy=multi-user.target

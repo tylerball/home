@@ -19,3 +19,5 @@ homeassistant/known_devices.yaml
 homeassistant/discogs*
 
 syncthing/*
+
+ubnt/*
