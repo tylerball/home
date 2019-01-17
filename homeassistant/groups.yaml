@@ -1,38 +1,14 @@
-default_view:
-  name: Home
-  view: yes
+entrance_lights:
   entities:
-    - group.living_room
-    - group.front_door
-    - group.garage
-    - sun.sun
-    - climate.home
-    - media_player.mpd
-    - media_player.living_room
+  - light.porch_light
 
-front_door:
+living_room_lights:
   entities:
-    - lock.schlage_be469nxcen_touchscreen_deadbolt_locked_6_0
-    - sensor.ring_front_door_motion
-    - sensor.ring_front_door_last_activity
-    - binary_sensor.ring_front_door_motion
-
-living_room:
-  entities:
-    - sensor.home_temperature
-    - sensor.home_occupancy
-    - input_slider.receiver_volume
-    - script.apple_tv_on
-    - media_player.receiver
-
-bedroom:
-  entities:
-    - sensor.bedroom_temperature
-    - sensor.bedroom_occupancy
-
-garage:
-  entities:
-    - camera.foscam_camera
+    - light.dining_room_potlights
+    - light.living_room_living_room_potlights
+    - light.living_room_chandelier
+    - light.living_room_living_room_nook_lights
+    - light.living_room_lamp
 
 device_trackers:
   entities:

@@ -10,4 +10,5 @@
 
 - name: Good Night
   entities:
-    group.all_lights: false
+    group.living_room_lights: false
+    group.entrance_lights: false

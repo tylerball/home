@@ -186,7 +186,8 @@
   trigger:
     platform: state
     entity_id: group.device_trackers
-    state: 'not_home'
+    from: 'home'
+    to: 'not_home'
     for:
       hours: 1
       minutes: 0
@@ -203,7 +204,8 @@
   trigger:
     platform: state
     entity_id: group.device_trackers
-    state: 'home'
+    from: 'not_home'
+    to: 'home'
     for:
       minutes: 20
   action:
