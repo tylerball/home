@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  shairport:
+    container_name: shairport
+    image: kevineye/shairport-sync
+    network_mode: host
+    environment:
+      - AIRPLAY_NAME=living room
+    volumes:
+      - ./shairport-sync.conf:/etc/shairport-sync.conf
+    devices:
+      - /dev/snd:/dev/snd
+    command: -c /etc/shairport-sync.conf
+    restart: always

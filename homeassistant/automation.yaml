@@ -88,7 +88,7 @@
     - service: media_player.select_source
       data:
         entity_id: media_player.receiver
-        source: Apple TV
+        source: Stream
     - service: rest_command.set_living_room_volume
 
 - alias: Sunset

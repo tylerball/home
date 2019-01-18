@@ -1,0 +1,23 @@
+- include_vars: 'vault.yml'
+
+- name: apt packages
+  apt:
+    name: [
+      'python-pip',
+      'alsa-utils',
+    ]
+  become: yes
+
+- shell: pip install docker
+  args:
+    creates: /usr/local/lib/python2.7/dist-packages/docker
+  become: yes
+
+- template:
+    src: docker-compose.yml
+    dest: docker-compose.yml
+
+- template:
+    src: shairport-sync.conf
+    dest: shairport-sync.conf
+  become: yes

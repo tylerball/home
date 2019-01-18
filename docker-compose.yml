@@ -104,6 +104,7 @@ services:
       - PUID=1000
     env_file:
       - ./daapd.env
+    restart: always
 
   syncthing:
     container_name: syncthing
@@ -120,6 +121,7 @@ services:
       - 8384:8384
       - 22000:22000
       - 21027:21027/udp
+    restart: always
 
   soulseek:
     container_name: soulseek
@@ -129,6 +131,7 @@ services:
       - /mnt/pool/downloads:/home/soulseek/Soulseek Downloads/complete
     ports:
       - 5900:5900
+    restart: always
 
 networks:
   traefik_proxy:
