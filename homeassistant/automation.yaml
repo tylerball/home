@@ -74,6 +74,23 @@
   action:
     service: rest_command.set_office_volume
 
+- alias: kitchen Volume
+  trigger:
+    platform: state
+    entity_id: sensor.kitchen_volume
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.kitchen_volume
+      value: '{{ trigger.to_state.state }}'
+
+- alias: kitchen Volume set
+  trigger:
+    platform: state
+    entity_id: input_number.kitchen_volume
+  action:
+    service: rest_command.set_kitchen_volume
+
 - alias: Living Room Speaker On
   trigger:
     platform: state

@@ -131,6 +131,8 @@ views:
           - entity: switch.kitchen_speakers
             name: Kitchen
             tap_action: toggle
+          - entity: input_number.kitchen_volume
+            name: Kitchen Volume
 
       - type: 'custom:discogs-card'
 
