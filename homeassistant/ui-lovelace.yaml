@@ -63,7 +63,7 @@ views:
             state: 'not_home'
         card:
           type: picture-entity
-          entity: camera.foscam_camera
+          entity: camera.rivercam
           name: RiverCam
 
   - id: alarms

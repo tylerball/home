@@ -72,11 +72,8 @@ ecobee:
   api_key: !secret ecobee_api_key
 
 camera:
-  - platform: foscam
-    ip: !secret foscam_ip
-    username: tylerball
-    password: !secret foscam_password
   - platform: ring
+  - platform: zoneminder
 
 notify:
   - platform: pushover
@@ -119,6 +116,11 @@ device_tracker:
     new_device_defaults:
       track_new_devices: true
       hide_if_away: false
+
+zoneminder:
+  host: !secret zoneminder_ip
+  path: '/'
+  path_zms: '/cgi-bin/nph-zms'
 
 input_datetime:
   music_alarm:

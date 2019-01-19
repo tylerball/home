@@ -182,7 +182,27 @@
     service: scene.turn_on
     entity_id: scene.good_night
 
-- alias: Ecobee away
+- alias: Away instant
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: switch.turn_on
+    entity_id: switch.zoneminder
+
+- alias: Home instant
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: switch.turn_off
+    entity_id: switch.zoneminder
+
+- alias: Away delay
   trigger:
     platform: state
     entity_id: group.device_trackers
@@ -200,7 +220,7 @@
       entity_id: climate.home
       away_mode: true
 
-- alias: Ecobee home
+- alias: Home delay
   trigger:
     platform: state
     entity_id: group.device_trackers
