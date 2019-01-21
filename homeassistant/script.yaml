@@ -1,48 +1,52 @@
-receiver_spotify:
-  alias: 'Spotify'
+receiver_stream:
   sequence:
     - service: media_player.turn_on
       data:
         entity_id: media_player.receiver
+    - delay: 0:30
     - service: media_player.select_source
       data:
         entity_id: media_player.receiver
-        source: 'network'
+        source: 'Video 6'
+    - service: rest_command.set_living_room_volume
 
 grinch_mode:
   alias: 'Grinch Mode'
   sequence:
-    - service: script.receiver_spotify
+    - service: switch.turn_on
+      entity_id: switch.living_room_speakers
     - service: media_player.volume_set
       data:
         entity_id: media_player.receiver
-        volume_level: '0.35'
-    - service: media_player.play_media
-      data:
-        entity_id: media_player.spotify
-        media_content_type: playlist
-        media_content_id: 'spotify:user:tyler_ball:playlist:2j3LTdwuTNDyP4MehvverG'
+        volume_level: '0.4'
+    - service: media_player.clear_playlist
+      entity_id: media_player.mpd
     - service: media_player.shuffle_set
       data:
-        entity_id: media_player.spotify
+        entity_id: media_player.mpd
         shuffle: true
-    - service: media_player.media_next_track
+    - service: media_player.play_media
       data:
-        entity_id: media_player.spotify
-    - service: media_player.select_source
+        entity_id: media_player.mpd
+        media_content_type: playlist
+        media_content_id: 'file:/mnt/pool/tunes/grinch'
+    - service: light.turn_on
       data:
-        entity_id: media_player.spotify
-        source: receiver
+        entity_id: light.living_room_lamp
+        brightness: 255
+        rgb_color: [0,255,0]
 
 burn_it_down:
   alias: 'Burn it Down'
   sequence:
     - service: media_player.media_pause
       data:
-        entity_id: media_player.spotify
+        entity_id: media_player.mpd
     - service: media_player.clear_playlist
       data:
-        entity_id: media_player.spotify
+        entity_id: media_player.mpd
+    - service: scene.turn_on
+      entity_id: scene.sunset
 
 music_alarm:
   alias: 'Music Alarm'

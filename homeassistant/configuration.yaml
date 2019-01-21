@@ -51,11 +51,6 @@ media_player:
   - platform: onkyo
     host: !secret receiver_ip
     name: receiver
-    sources:
-      video2_cbl_sat: 'Turntables'
-      cd_tv/cd: 'Apple TV'
-      network: 'Spotify'
-      video6_pc: 'Stream'
   - platform: spotify
     client_id: !secret spotify_client_id
     client_secret: !secret spotify_client_secret

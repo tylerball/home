@@ -99,14 +99,7 @@
     - condition: template
       value_template: "{{ state_attr('sensor.living_room_volume', 'selected') }}"
   action:
-    - service: media_player.turn_on
-      data:
-        entity_id: media_player.receiver
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.receiver
-        source: Stream
-    - service: rest_command.set_living_room_volume
+    - service: script.receiver_stream
 
 - alias: Sunset
   trigger:
