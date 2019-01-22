@@ -9,7 +9,6 @@ homeassistant:
     - /config
 
 http:
-  api_password: !secret api_password
   base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies:
@@ -36,6 +35,14 @@ logbook:
 history:
 sun:
 ios:
+homekit:
+  filter:
+    include_domains:
+      - scene
+      - script
+      - media_player
+      - cover.garage
+
 weather:
   - platform: darksky
     api_key: !secret darksky_key
@@ -94,11 +101,8 @@ lutron_caseta:
 logger:
   default: warning
   logs:
-    homeassistant.components.media_player.spotify: debug
     homeassistant.components.tradfri: debug
     homeassistant.components.calendar: debug
-    homeassistant.components.unifi: debug
-    homeassistant.components.switch.unifi: debug
 
 device_tracker:
   - platform: unifi

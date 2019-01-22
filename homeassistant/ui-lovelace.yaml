@@ -3,47 +3,32 @@ resources:
     type: js
 title: Davenport
 views:
-  - id: home
-    title: home
-    icon: mdi:home
+  - id: travel
+    title: travel
+    icon: mdi:pin
     cards:
-      - type: conditional
-        conditions:
-          - entity: cover.garage
-            state: "closed"
-        card:
-          type: entity-button
-          name: Garage Door
-          entity: cover.garage
-          icon: mdi:format-vertical-align-top
-          tap_action:
-            action: call-service
-            service: cover.open_cover
-            service_data:
-              entity_id: cover.garage
-      - type: conditional
-        conditions:
-          - entity: cover.garage
-            state: "open"
-        card:
-          type: entity-button
-          name: Garage Door
-          entity: cover.garage
-          icon: mdi:format-vertical-align-bottom
-          tap_action:
-            action: call-service
-            service: cover.close_cover
-            service_data:
-              entity_id: cover.garage
+      - type: entities
+        entities:
+          - type: entity-button
+            name: Garage Door
+            entity: cover.garage
+          - entity: sensor.travel_time_tyler
+            name: Travel Time to Tyler's Work
+          - entity: sensor.travel_time_jen
+            name: Travel Time to Jen's Work
 
       - type: vertical-stack
         cards:
         - type: iframe
-          url: https://embed.windy.com/embed2.html?lat=42.310&lon=-79.453&zoom=6&level=surface&overlay=wind&menu=&message=&marker=&calendar=&pressure=&type=map&location=coordinates&detail=&detailLat=43.689&detailLon=-79.451&metricWind=default&metricTemp=default&radarRange=-1
-          title: Weather radar
+          url: /local/darksky-map.html
+          aspect_ratio: 60%
         - type: weather-forecast
           entity: weather.dark_sky
 
+  - id: home
+    title: home
+    icon: mdi:home
+    cards:
       - type: vertical-stack
         cards:
         - type: thermostat
@@ -65,6 +50,12 @@ views:
           type: picture-entity
           entity: camera.rivercam
           name: RiverCam
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - scene.sunset
+          - scene.good_night
 
   - id: alarms
     title: alarms

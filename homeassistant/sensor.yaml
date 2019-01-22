@@ -55,3 +55,19 @@
   name: Discogs Item Desc
   file_path: /config/discogs.json
   value_template: '{{ value_json.artists[0].name }} — {{ value_json.title }}'
+
+- platform: google_travel_time
+  api_key: !secret google_api_key
+  origin: zone.home
+  destination: !secret address_tyler_work
+  name: Travel Time Tyler
+  options:
+    mode: transit
+
+- platform: google_travel_time
+  api_key: !secret google_api_key
+  origin: zone.home
+  destination: !secret address_jen_work
+  name: Travel Time Jen
+  options:
+    mode: transit

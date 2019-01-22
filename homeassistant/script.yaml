@@ -1,4 +1,5 @@
 receiver_stream:
+  alias: 'receiver stream'
   sequence:
     - service: media_player.turn_on
       data:

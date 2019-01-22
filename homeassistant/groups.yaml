@@ -4,11 +4,15 @@ entrance_lights:
 
 living_room_lights:
   entities:
+    - light.living_room_chandelier
+    - light.living_room_lamp
+    - group.living_room_potlights
+
+living_room_potlights:
+  entities:
     - light.dining_room_potlights
     - light.living_room_living_room_potlights
-    - light.living_room_chandelier
     - light.living_room_living_room_nook_lights
-    - light.living_room_lamp
 
 device_trackers:
   entities:
