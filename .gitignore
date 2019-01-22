@@ -4,6 +4,7 @@
 *.key
 *.log
 *.db
+*.state
 
 traefik/acme
 

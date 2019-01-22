@@ -6,9 +6,7 @@ services:
     image: traefik:latest
     container_name: traefik
     domainname: 2030davenport.com
-    networks:
-      - local
-      - traefik_proxy
+    network_mode: host
     ports:
       - 80:80
       - 443:443
@@ -44,26 +42,10 @@ services:
     volumes:
       - ./homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-    labels:
-      - traefik.enable=true
-      - traefik.backend=homeassistant
-      - traefik.frontend.rule=Host:2030davenport.com
-      - traefik.port=8123
-      - traefik.docker.network=traefik_proxy
-      - traefik.frontend.headers.SSLRedirect=true
-      - traefik.frontend.headers.STSSeconds=315360000
-      - traefik.frontend.headers.browserXSSFilter=true
-      - traefik.frontend.headers.contentTypeNosniff=true
-      - traefik.frontend.headers.forceSTSHeader=true
-      - traefik.frontend.headers.SSLHost=2030davenport.com
-      - traefik.frontend.headers.STSIncludeSubdomains=true
-      - traefik.frontend.headers.STSPreload=true
-      - traefik.frontend.headers.frameDeny=true
-    networks:
-      - traefik_proxy
-      - local
+    network_mode: host
     ports:
       - 8123:8123
+      - 51827:51827 # homekit
     environment:
       - TZ=America/Toronto
     restart: always
@@ -78,6 +60,7 @@ services:
       - /mnt/pool/tunes/spotify:/data
     env_file:
       - ./librespot.env
+    restart: always
 
   shairport:
     container_name: shairport
@@ -91,6 +74,7 @@ services:
     environment:
       - AIRPLAY_NAME=Home
     command: --metadata-pipename=/tmp/shairport-sync-metadata -o pipe -- /output
+    restart: always
 
   daapd:
     container_name: daapd
@@ -132,10 +116,3 @@ services:
     ports:
       - 5900:5900
     restart: always
-
-networks:
-  traefik_proxy:
-    external:
-      name: traefik_proxy
-  local:
-    driver: bridge

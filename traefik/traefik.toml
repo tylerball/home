@@ -9,9 +9,9 @@ defaultEntryPoints = ["https", "http"]
   address = ":80"
     [entryPoints.http.redirect]
     entryPoint = "https"
-  [entryPoints.ws]
-  address = ":3688"
-    [entryPoints.ws.tls]
+  # [entryPoints.ws]
+  # address = ":3688"
+  #   [entryPoints.ws.tls]
 
 [acme]
 email = "tyler@tylerball.net"
