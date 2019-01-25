@@ -14,6 +14,11 @@ living_room_potlights:
     - light.living_room_living_room_potlights
     - light.living_room_living_room_nook_lights
 
+bedroom_lights:
+  entities:
+    - light.jens_light
+    - light.tylers_light
+
 device_trackers:
   entities:
     - device_tracker.tylers_phone

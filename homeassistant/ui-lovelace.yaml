@@ -1,6 +1,8 @@
 resources:
   - url: /local/discogs-card.js
     type: js
+  - url: /local/group-card.js
+    type: js
 title: Davenport
 views:
   - id: travel
@@ -17,13 +19,11 @@ views:
           - entity: sensor.travel_time_jen
             name: Travel Time to Jen's Work
 
-      - type: vertical-stack
-        cards:
-        - type: iframe
-          url: /local/darksky-map.html
-          aspect_ratio: 60%
-        - type: weather-forecast
-          entity: weather.dark_sky
+      - type: iframe
+        url: /local/darksky-map.html
+        aspect_ratio: 60%
+      - type: weather-forecast
+        entity: weather.dark_sky
 
   - id: home
     title: home
@@ -37,6 +37,24 @@ views:
           entity: sensor.home_temperature
           name: Home Temperature
           graph: line
+
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Bedroom lights
+        group: group.bedroom_lights
+
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Living room lights
+        group: group.living_room_lights
+
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Entrance lights
+        group: group.entrance_lights
 
       - type: picture-entity
         entity: camera.front_door
