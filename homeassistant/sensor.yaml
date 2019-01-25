@@ -71,3 +71,15 @@
   name: Travel Time Jen
   options:
     mode: transit
+
+- platform: ttc
+  route: 168
+  tag: 2540
+
+- platform: ttc
+  route: 127
+  tag: 2540
+
+- platform: ttc
+  route: 301
+  tag: 7899
