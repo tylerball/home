@@ -8,6 +8,8 @@ homeassistant:
   whitelist_external_dirs:
     - /config
 
+  packages: !include_dir_named packages
+
 http:
   base_url: !secret base_url
   use_x_forwarded_for: true

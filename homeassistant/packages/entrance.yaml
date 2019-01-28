@@ -1,0 +1,85 @@
+automation:
+- alias: Away instant
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: switch.turn_on
+    entity_id: switch.zoneminder
+
+- alias: Home instant
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'home'
+    to: 'not_home'
+  action:
+    service: switch.turn_off
+    entity_id: switch.zoneminder
+
+- alias: Away delay
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'home'
+    to: 'not_home'
+    for:
+      hours: 1
+      minutes: 0
+  condition:
+    - condition: template
+      value_template: "{{ states('group.occupancy_sensors') == 'off' }}"
+  action:
+    service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: true
+
+- alias: Home delay
+  trigger:
+    platform: state
+    entity_id: group.device_trackers
+    from: 'not_home'
+    to: 'home'
+    for:
+      minutes: 20
+  action:
+    service: climate.set_away_mode
+    data:
+      entity_id: climate.home
+      away_mode: false
+
+- alias: Out late
+  trigger:
+    platform: state
+    entity_id:
+      - device_tracker.tylers_phone
+      - device_tracker.jens_phone
+    from: 'home'
+    to: 'not_home'
+  condition:
+    condition: time
+    after: '00:05:00'
+    before: '06:00:00'
+  action:
+    service: light.turn_on
+    data:
+      entity_id: light.porch_light
+      brightness: 10
+
+- alias: Return late
+  trigger:
+    platform: state
+    entity_id: device_tracker.tylers_phone, device_tracker.jens_phone
+    from: 'not_home'
+    to: 'home'
+  condition:
+    condition: time
+    after: '00:05:00'
+    before: '06:00:00'
+  action:
+    - delay: 0:30
+    - service: light.turn_off
+      entity_id: light.porch_light
