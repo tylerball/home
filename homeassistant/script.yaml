@@ -57,7 +57,7 @@ music_alarm:
     - service: input_number.set_value
       data:
         entity_id: input_number.bedroom_volume
-        value: 30
+        value: 40
     - service: media_player.clear_playlist
       entity_id: media_player.mpd
     - service: media_player.shuffle_set

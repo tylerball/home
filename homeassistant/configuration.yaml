@@ -57,20 +57,8 @@ calendar:
     url: !secret caldav_url
 
 media_player:
-  - platform: onkyo
-    host: !secret receiver_ip
-    name: receiver
-  - platform: spotify
-    client_id: !secret spotify_client_id
-    client_secret: !secret spotify_client_secret
-    aliases:
-      70f8bb9a8a5393ef080507a89e4b98d139000d65: home
-      126a80ef484035c196dd9f39d0c1a2c9e869810c: receiver
-      009e058c883c683e1330228851ecafe3265c8f51: bedroom
   - platform: braviatv
     host: !secret bravia_ip
-  - platform: mpd
-    host: !secret host_ip
 
 ecobee:
   api_key: !secret ecobee_api_key
@@ -141,7 +129,5 @@ automation: !include automation.yaml
 sensor: !include sensor.yaml
 binary_sensor: !include binary_sensors.yaml
 switch: !include switches.yaml
-input_number: !include input_number.yaml
-rest_command: !include rest_command.yaml
 shell_command: !include shell_commands.yaml
 group: !include groups.yaml
