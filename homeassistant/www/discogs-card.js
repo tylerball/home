@@ -1,14 +1,14 @@
 class DiscogsCard extends HTMLElement {
   set hass(hass) {
     if (!this.content) {
-      const card = document.createElement('ha-card');
+      var card = document.createElement('ha-card');
       this.content = document.createElement('div');
       this.content.id = 'wrapper';
       card.appendChild(this.content);
       this.appendChild(card);
     }
 
-    const image = hass.states['sensor.discogs_item_image'].state;
+    var image = hass.states['sensor.discogs_item_image'].state;
 
     this.content.innerHTML = `
       <style>img {
