@@ -37,14 +37,38 @@ views:
     title: home
     icon: mdi:home
     cards:
+      - type: thermostat
+        entity: climate.home
+
       - type: vertical-stack
         cards:
-        - type: thermostat
-          entity: climate.home
-        - type: sensor
-          entity: sensor.home_temperature
-          name: Home Temperature
-          graph: line
+        - type: horizontal-stack
+          cards:
+          - type: sensor
+            entity: sensor.home_temperature
+            name: Living Room
+            graph: line
+          - type: sensor
+            entity: sensor.kitchen_temperature
+            name: Kitchen
+            graph: line
+
+        - type: horizontal-stack
+          cards:
+          - type: sensor
+            entity: sensor.bedroom_temperature
+            name: Bedroom
+            graph: line
+          - type: sensor
+            entity: sensor.office_temperature
+            name: Office
+            graph: line
+
+      - type: entities
+        show_header_toggle: false
+        entities:
+          - scene.sunset
+          - scene.good_night
 
       - type: custom:group-card
         card:
@@ -76,12 +100,6 @@ views:
           type: picture-entity
           entity: camera.rivercam
           name: RiverCam
-
-      - type: entities
-        show_header_toggle: false
-        entities:
-          - scene.sunset
-          - scene.good_night
 
   - id: alarms
     title: alarms
