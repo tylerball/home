@@ -1,16 +1,3 @@
-receiver_stream:
-  alias: 'receiver stream'
-  sequence:
-    - service: media_player.turn_on
-      data:
-        entity_id: media_player.receiver
-    - delay: 0:30
-    - service: media_player.select_source
-      data:
-        entity_id: media_player.receiver
-        source: 'Video 6'
-    - service: rest_command.set_living_room_volume
-
 grinch_mode:
   alias: 'Grinch Mode'
   sequence:
