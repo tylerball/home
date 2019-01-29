@@ -65,3 +65,4 @@ class TTCSensor(Entity):
             else:
                 state = prediction
             self._state = timedelta(seconds=int(state['seconds']))
+            self._attributes['prediction'] = prediction
