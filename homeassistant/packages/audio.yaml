@@ -195,5 +195,5 @@ script:
       - service: media_player.select_source
         data:
           entity_id: media_player.receiver
-          source: 'Video 6'
+          source: 'video6'
       - service: rest_command.set_living_room_volume
