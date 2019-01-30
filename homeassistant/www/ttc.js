@@ -18,16 +18,20 @@ class TTCCard extends HTMLElement {
 
     var data = hass.states[this._config.entity]
     var predictions = (data.attributes.prediction) ?
-      data.attributes.prediction.map(function (pred) {
-      var rawSeconds = parseInt(pred.seconds);
-      var minutes = Math.floor(rawSeconds / 60);
-      var seconds = ("0" + (rawSeconds - minutes)).substring(0, 2);
-      return `
-        <div class="prediction">
-          ${minutes}:${seconds}
-        </div>
-      `;
-    }) : [];
+      data.attributes.prediction.map(function (pred, index) {
+        if (index > 3) {
+          return '';
+        }
+        var rawSeconds = parseInt(pred.seconds);
+        var minutes = Math.floor(rawSeconds / 60);
+        var seconds = ("0" + (rawSeconds - minutes)).substring(0, 2);
+        return `
+          <div class="prediction">
+            ${minutes}:${seconds}
+          </div>
+        `;
+      }) :
+      [];
 
     this.content.innerHTML = `
       <style>
