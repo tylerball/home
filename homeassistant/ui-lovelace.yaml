@@ -5,6 +5,8 @@ resources:
     type: js
   - url: /local/ttc.js
     type: js
+  - url: /local/refresher.js
+    type: js
 title: Davenport
 views:
   - id: travel
