@@ -102,6 +102,7 @@ device_tracker:
     username: !secret unifi_username
     password: !secret unifi_password
     site_id: !secret unifi_site
+    detection_time: 180
     new_device_defaults:
       track_new_devices: true
       hide_if_away: false

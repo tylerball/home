@@ -4,10 +4,10 @@
       state: true
       brightness: 255
       rgb_color: [255,171,88]
-    light.living_room_living_room_nook_lights:
+    light.living_room_nook_lights:
       state: true
       brightness: 180
-    light.porch_light:
+    light.front_porch_porch_light:
       state: true
       brightness: 10
 
