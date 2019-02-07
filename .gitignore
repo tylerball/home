@@ -5,6 +5,7 @@
 *.log
 *.db
 *.state
+*.sqlite
 
 traefik/acme
 
@@ -20,6 +21,8 @@ homeassistant/.ios.conf
 homeassistant/known_devices.yaml
 homeassistant/discogs*
 homeassistant/plex*
+homeassistant/*.xml
+homeassistant/OZW_Log.txt
 
 syncthing/*
 

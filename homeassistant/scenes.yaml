@@ -15,3 +15,4 @@
   entities:
     group.living_room_lights: false
     group.entrance_lights: false
+    group.basement_lights: false

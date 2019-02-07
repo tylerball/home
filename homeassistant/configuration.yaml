@@ -45,6 +45,10 @@ homekit:
       - media_player
       - cover.garage
 
+zwave:
+  usb_path: /dev/ttyACM0
+  network_key: !secret zwave_key
+
 weather:
   - platform: darksky
     api_key: !secret darksky_key

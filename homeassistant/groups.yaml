@@ -20,6 +20,10 @@ bedroom_lights:
     - light.jens_light
     - light.tylers_light
 
+basement_lights:
+  entities:
+    - switch.basement_stairs
+
 device_trackers:
   entities:
     - device_tracker.tylers_phone

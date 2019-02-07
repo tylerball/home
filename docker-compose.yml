@@ -48,6 +48,8 @@ services:
       - 51827:51827 # homekit
     environment:
       - TZ=America/Toronto
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
     restart: always
 
   spotify:

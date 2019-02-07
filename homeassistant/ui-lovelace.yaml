@@ -90,6 +90,12 @@ views:
           title: Entrance lights
         group: group.entrance_lights
 
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Basement lights
+        group: group.basement_lights
+
       - type: picture-entity
         entity: camera.front_door
         name: Front Door
