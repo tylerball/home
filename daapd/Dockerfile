@@ -15,10 +15,8 @@ RUN apt-get install -y \
     libasound2-dev libmxml-dev libgcrypt11-dev libavahi-client-dev zlib1g-dev \
     libevent-dev libplist-dev libsodium-dev libjson-c-dev libwebsockets-dev libcurl4-openssl-dev
 
-RUN git clone https://github.com/tylerball/forked-daapd.git &&\
+RUN git clone https://github.com/ejurgensen/forked-daapd.git &&\
   cd forked-daapd &&\
-  git checkout configurable-websocket-protocol &&\
-  git pull &&\
   autoreconf -i &&\
   ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --enable-lastfm --enable-mpd &&\
   make &&\
