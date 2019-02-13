@@ -1,6 +1,7 @@
 entrance_lights:
   entities:
   - light.front_porch_porch_light
+  - light.front_foyer_main_lights
 
 living_room_lights:
   entities:

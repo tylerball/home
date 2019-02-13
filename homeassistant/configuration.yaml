@@ -53,12 +53,15 @@ weather:
   - platform: darksky
     api_key: !secret darksky_key
     units: ca
+    mode: daily
 
 calendar:
   - platform: caldav
     username: !secret email
     password: !secret caldav_password
     url: !secret caldav_url
+    calendars:
+      - 'Jen/Tyler'
 
 media_player:
   - platform: braviatv

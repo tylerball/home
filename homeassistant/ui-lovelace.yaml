@@ -48,11 +48,11 @@ views:
           cards:
           - type: sensor
             entity: sensor.home_temperature
-            name: Living Room
+            name: living room
             graph: line
           - type: sensor
             entity: sensor.kitchen_temperature
-            name: Kitchen
+            name: kitchen
             graph: line
 
         - type: horizontal-stack
@@ -186,3 +186,20 @@ views:
     cards:
       - type: iframe
         url: http://192.168.1.50:3689
+
+  - id: charts
+    title: charts
+    icon: mdi:chart-line
+    cards:
+      - type: sensor
+        entity: sensor.speedtest_download
+        name: Internet Download
+        graph: line
+      - type: sensor
+        entity: sensor.speedtest_upload
+        name: Internet Upload
+        graph: line
+      - type: sensor
+        entity: sensor.speedtest_ping
+        name: Internet Ping
+        graph: line

@@ -55,3 +55,11 @@
 - platform: ttc
   route: 127
   tag: 2540
+
+- platform: speedtest
+  hour: 5
+  minute: 0
+  monitored_conditions:
+    - ping
+    - download
+    - upload

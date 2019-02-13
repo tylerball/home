@@ -17,7 +17,7 @@ class TTCCard extends HTMLElement {
     }
 
     var data = hass.states[this._config.entity]
-    var predictions = (data.attributes.prediction) ?
+    var predictions = (data.attributes.prediction.map) ?
       data.attributes.prediction.map(function (pred, index) {
         if (index > 3) {
           return '';

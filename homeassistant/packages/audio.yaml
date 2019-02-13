@@ -28,10 +28,20 @@ automation:
     platform: state
     entity_id: media_player.receiver
   action:
-    - service: input_number.set_value
-      data_template:
-        entity_id: media_player.receiver
-        value: "{{ state_attr('media_player.receiver', 'volume_level') | float }}"
+    service: input_number.set_value
+    data_template:
+      entity_id: media_player.receiver
+      value: "{{ state_attr('media_player.receiver', 'volume_level') | float }}"
+
+- alias: Receiver input change
+  trigger:
+    platform: state
+    entity_id: media_player.receiver
+  condition:
+    condition: template
+    value_template: "{{ state_attr('media_player.receiver', 'source') != 'Video 6' }}"
+  action:
+    service: rest_command.unset_living_room
 
 - alias: Bedroom Volume
   trigger:
@@ -114,7 +124,7 @@ automation:
     - condition: template
       value_template: "{{ state_attr('sensor.living_room_volume', 'selected') }}"
   action:
-    - service: script.receiver_stream
+    service: script.receiver_stream
 
 sensor:
 - platform: rest
@@ -158,6 +168,10 @@ rest_command:
     url: !secret living_room_speaker_url
     method: PUT
     payload: '{"volume" : 100 }'
+  unset_living_room:
+    url: !secret living_room_speaker_url
+    method: PUT
+    payload: '{"selected" : false }'
 
 input_number:
   bedroom_volume:
@@ -188,10 +202,6 @@ script:
   receiver_stream:
     alias: 'receiver stream'
     sequence:
-      - service: media_player.turn_on
-        data:
-          entity_id: media_player.receiver
-      - delay: 0:30
       - service: media_player.select_source
         data:
           entity_id: media_player.receiver
