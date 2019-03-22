@@ -17,21 +17,29 @@ class TTCCard extends HTMLElement {
     }
 
     var data = hass.states[this._config.entity]
-    var predictions = (data.attributes.prediction.map) ?
-      data.attributes.prediction.map(function (pred, index) {
-        if (index > 3) {
-          return '';
-        }
-        var rawSeconds = parseInt(pred.seconds);
-        var minutes = Math.floor(rawSeconds / 60);
-        var seconds = ("0" + (rawSeconds - minutes)).substring(0, 2);
-        return `
-          <div class="prediction">
-            ${minutes}:${seconds}
-          </div>
-        `;
-      }) :
-      [];
+    let predictions = [];
+
+    function parsePrediction(pred, index) {
+      if (index > 3) {
+        return '';
+      }
+      var rawSeconds = parseInt(pred.seconds);
+      var minutes = Math.floor(rawSeconds / 60);
+      var seconds = ("0" + (rawSeconds - minutes)).substring(0, 2);
+      return `
+        <div class="prediction">
+          ${minutes}:${seconds}
+        </div>
+      `;
+    }
+
+    if (data.attributes.hasOwnProperty('prediction')) {
+      if (data.attributes.prediction.length) {
+        predictions = data.attributes.prediction.map(parsePrediction);
+      } else {
+        predictions = [parsePrediction(data.attributes.prediction)];
+      }
+    }
 
     this.content.innerHTML = `
       <style>
