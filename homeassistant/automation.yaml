@@ -77,3 +77,16 @@
     seconds: '30'
   action:
     service: shell_command.discogs_random_json
+
+- alias: fade bedroom light
+  trigger:
+    platform: state
+    entity_id: light.tylers_light
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: sun
+      after: sunset
+  action:
+    service: light.turn_on
+    brightness: 80
