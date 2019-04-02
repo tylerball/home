@@ -15,6 +15,8 @@ http:
   use_x_forwarded_for: true
   trusted_proxies:
     - !secret host_ip
+  trusted_networks:
+    - 127.0.0.1
   ip_ban_enabled: true
   login_attempts_threshold: 5
 
@@ -35,6 +37,7 @@ discovery:
 config:
 logbook:
 history:
+system_health:
 sun:
 ios:
 homekit:
@@ -100,6 +103,7 @@ logger:
   logs:
     homeassistant.components.tradfri: debug
     homeassistant.components.calendar: debug
+    homeassistant.components.calendar.caldav: debug
 
 device_tracker:
   - platform: unifi
@@ -118,6 +122,13 @@ zoneminder:
   host: !secret zoneminder_ip
   path: '/'
   path_zms: '/cgi-bin/nph-zms'
+
+speedtestdotnet:
+  scan_interval: '05:00'
+  monitored_conditions:
+    - ping
+    - download
+    - upload
 
 input_datetime:
   music_alarm:

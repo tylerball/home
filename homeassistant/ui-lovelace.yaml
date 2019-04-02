@@ -16,6 +16,9 @@ views:
       - type: entities
         entities:
           - type: entity-button
+            name: Front Door
+            entity: lock.front_door
+          - type: entity-button
             name: Garage Door
             entity: cover.garage
           - entity: sensor.travel_time_tyler

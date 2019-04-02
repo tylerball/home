@@ -84,6 +84,7 @@ class RestStatusSwitch(RestSwitch):
         self._is_on_template = is_on_template
         self._timeout = timeout
         self._success_code = success_code
+        self._verify_ssl = False
 
     async def async_turn_on(self, **kwargs):
         """Turn the device on."""

@@ -1,23 +1,12 @@
 - platform: time_date
 - platform: yr
 - platform: ring
-  username: !secret email
-  password: !secret ring_password
   monitored_conditions:
     - battery
     - last_activity
     - last_ding
     - last_motion
     - volume
-
-- platform: transmission
-  host: !secret transmission_ip
-  username: admin
-  password: !secret transmission_password
-  monitored_variables:
-    - 'current_status'
-    - 'download_speed'
-    - 'upload_speed'
 
 - platform: discogs
   token: !secret discogs_token
@@ -55,11 +44,3 @@
 - platform: ttc
   route: 127
   tag: 2540
-
-- platform: speedtest
-  hour: 5
-  minute: 0
-  monitored_conditions:
-    - ping
-    - download
-    - upload

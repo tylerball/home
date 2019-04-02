@@ -89,4 +89,6 @@
       after: sunset
   action:
     service: light.turn_on
-    brightness: 80
+    data:
+      entity_id: light.tylers_light
+      brightness: 80
