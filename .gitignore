@@ -27,3 +27,6 @@ homeassistant/OZW_Log.txt
 syncthing/*
 
 ubnt/*
+
+shinobi/*
+!shinobi/**/.gitkeep

@@ -15,9 +15,14 @@
     backend="homeassistant"
     entryPoints = ["https"]
     passHostHeader = true
-    proirity = 20
     [frontends.homeassistant.routes.docker_host]
       rule="Host:2030davenport.com"
+  [frontends.shinobi]
+    backend="shinobi"
+    entryPoints = ["https"]
+    passHostHeader = true
+    [frontends.shinobi.routes.docker_host]
+      rule="Host:shinobi.2030davenport.com"
 
 [backends]
   [backends.backend-daapd]
@@ -33,4 +38,8 @@
   [backends.homeassistant]
     [backends.homeassistant.servers.host]
       url = "http://192.168.1.50:8123"
+      weight = 10
+  [backends.shinobi]
+    [backends.shinobi.servers.host]
+      url = "http://192.168.1.50:8088"
       weight = 10
