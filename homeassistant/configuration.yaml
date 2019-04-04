@@ -123,6 +123,12 @@ zoneminder:
   path: '/'
   path_zms: '/cgi-bin/nph-zms'
 
+rest_command:
+  river_record:
+    url: !secret rivercam_url_rec
+  river_stop:
+    url: !secret rivercam_url_stop
+
 speedtestdotnet:
   scan_interval: '05:00'
   monitored_conditions:

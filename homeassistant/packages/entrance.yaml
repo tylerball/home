@@ -6,8 +6,7 @@ automation:
     from: 'home'
     to: 'not_home'
   action:
-    service: switch.turn_on
-    entity_id: switch.zoneminder
+    service: rest_command.river_record
 
 - alias: Home instant
   trigger:
@@ -16,8 +15,7 @@ automation:
     from: 'home'
     to: 'not_home'
   action:
-    service: switch.turn_off
-    entity_id: switch.zoneminder
+    service: rest_command.river_stop
 
 - alias: Away delay
   trigger:
