@@ -178,6 +178,12 @@ views:
           - entity: input_number.kitchen_volume
             name: Kitchen Volume
 
+          - entity: switch.garage_speakers
+            name: Garage
+            tap_action: toggle
+          - entity: input_number.garage_volume
+            name: Garage Volume
+
       - type: 'custom:discogs-card'
 
   - id: library

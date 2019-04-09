@@ -116,6 +116,23 @@ automation:
   action:
     service: rest_command.set_kitchen_volume
 
+- alias: garage Volume
+  trigger:
+    platform: state
+    entity_id: sensor.garage_volume
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.garage_volume
+      value: '{{ trigger.to_state.state }}'
+
+- alias: garage Volume set
+  trigger:
+    platform: state
+    entity_id: input_number.garage_volume
+  action:
+    service: rest_command.set_garage_volume
+
 - alias: Living Room Speaker On
   trigger:
     platform: state
@@ -164,6 +181,10 @@ rest_command:
     url: !secret kitchen_speaker_url
     method: PUT
     payload: '{"volume" : {{ states.input_number.kitchen_volume.state|round }} }'
+  set_garage_volume:
+    url: !secret garage_speaker_url
+    method: PUT
+    payload: '{"volume" : {{ states.input_number.garage_volume.state|round }} }'
   set_living_room_volume:
     url: !secret living_room_speaker_url
     method: PUT
@@ -194,6 +215,12 @@ input_number:
 
   kitchen_volume:
     name: Kitchen Volume
+    min: 0
+    max: 100
+    step: 1
+
+  garage_volume:
+    name: garage Volume
     min: 0
     max: 100
     step: 1
