@@ -150,7 +150,6 @@ views:
       - card:
         type: entities
         title: Speakers
-        show_header_toggle: false
         column_width: 50%
         entities:
           - entity: switch.living_room_speakers

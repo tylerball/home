@@ -153,6 +153,5 @@ script: !include script.yaml
 automation: !include automation.yaml
 sensor: !include sensor.yaml
 binary_sensor: !include binary_sensors.yaml
-switch: !include switches.yaml
 shell_command: !include shell_commands.yaml
 group: !include groups.yaml
