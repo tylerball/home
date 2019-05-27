@@ -9,7 +9,6 @@ from homeassistant.components.switch.rest import (RestSwitch, PLATFORM_SCHEMA)
 from homeassistant.const import (
     CONF_HEADERS, CONF_NAME, CONF_RESOURCE, CONF_TIMEOUT, CONF_METHOD,
     CONF_USERNAME, CONF_PASSWORD, HTTP_OK)
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 import homeassistant.helpers.config_validation as cv
 
 _LOGGER = logging.getLogger(__name__)

@@ -1,0 +1,8 @@
+{
+  "domain": "ttc",
+  "name": "TTC",
+  "documentation": "https://www.example.com",
+  "dependencies": [],
+  "codeowners": [],
+  "requirements": []
+}
