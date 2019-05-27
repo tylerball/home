@@ -76,6 +76,7 @@ views:
       - type: picture-entity
         entity: camera.front_door
         name: Front Door
+        camera_view: live
 
       - type: conditional
         conditions:
@@ -83,8 +84,9 @@ views:
             state: 'not_home'
         card:
           type: picture-entity
-          entity: camera.rivercam
+          entity: camera.foscam_camera
           name: RiverCam
+          camera_view: live
 
       - type: vertical-stack
         cards:

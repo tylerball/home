@@ -73,9 +73,13 @@ media_player:
 ecobee:
   api_key: !secret ecobee_api_key
 
+stream:
 camera:
   - platform: ring
-  - platform: zoneminder
+  - platform: foscam
+    ip: !secret rivercam_ip
+    username: !secret rivercam_user
+    password: !secret rivercam_pass
 
 notify:
   - platform: pushover
