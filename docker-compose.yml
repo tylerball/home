@@ -62,10 +62,11 @@ services:
      - /etc/timezone:/etc/timezone:ro
      - /dev/shm/shinobiDockerTemp:/dev/shm/streams
      - ./shinobi/config:/config
-     - ./shinobi/datadir:/var/lib/mysql
+     - /mnt/pool/shinobi/datadir:/var/lib/mysql
      - /mnt/pool/cams:/opt/shinobi/videos
     ports:
      - 8088:8080
+    restart: always
 
   spotify:
     container_name: spotify

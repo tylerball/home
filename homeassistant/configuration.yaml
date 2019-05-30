@@ -105,9 +105,7 @@ lutron_caseta:
 logger:
   default: warning
   logs:
-    homeassistant.components.tradfri: debug
-    homeassistant.components.calendar: debug
-    homeassistant.components.calendar.caldav: debug
+    # homeassistant.components.tradfri: debug
 
 device_tracker:
   - platform: unifi
@@ -122,10 +120,10 @@ device_tracker:
       track_new_devices: true
       hide_if_away: false
 
-zoneminder:
-  host: !secret zoneminder_ip
-  path: '/'
-  path_zms: '/cgi-bin/nph-zms'
+shinobi:
+  host: !secret shinobi_host
+  api_key: !secret shinobi_key
+  group_key: !secret shinobi_group
 
 rest_command:
   river_record:
