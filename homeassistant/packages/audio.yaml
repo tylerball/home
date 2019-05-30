@@ -133,6 +133,23 @@ automation:
   action:
     service: rest_command.set_garage_volume
 
+- alias: studio Volume
+  trigger:
+    platform: state
+    entity_id: sensor.studio_volume
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.studio_volume
+      value: '{{ trigger.to_state.state }}'
+
+- alias: studio Volume set
+  trigger:
+    platform: state
+    entity_id: input_number.studio_volume
+  action:
+    service: rest_command.set_studio_volume
+
 - alias: Living Room Speaker On
   trigger:
     platform: state
@@ -155,6 +172,22 @@ sensor:
 - platform: rest
   name: Office Volume
   resource: !secret office_speaker_url
+  method: GET
+  json_attributes: ["id","name","selected","volume"]
+  value_template: "{{ value_json.volume }}"
+  scan_interval: 10
+
+- platform: rest
+  name: Studio Volume
+  resource: !secret studio_speaker_url
+  method: GET
+  json_attributes: ["id","name","selected","volume"]
+  value_template: "{{ value_json.volume }}"
+  scan_interval: 10
+
+- platform: rest
+  name: Garage Volume
+  resource: !secret garage_speaker_url
   method: GET
   json_attributes: ["id","name","selected","volume"]
   value_template: "{{ value_json.volume }}"
@@ -185,6 +218,10 @@ rest_command:
     url: !secret garage_speaker_url
     method: PUT
     payload: '{"volume" : {{ states.input_number.garage_volume.state|round }} }'
+  set_garage_volume:
+    url: !secret studio_speaker_url
+    method: PUT
+    payload: '{"volume" : {{ states.input_number.studio_volume.state|round }} }'
   set_living_room_volume:
     url: !secret living_room_speaker_url
     method: PUT
@@ -225,8 +262,14 @@ input_number:
     max: 100
     step: 1
 
+  studio_volume:
+    name: studio Volume
+    min: 0
+    max: 100
+    step: 1
+
 switch:
-- platform: rest_status
+- platform: rest
   name: Bedroom Speakers
   resource: !secret bedroom_speaker_url
   method: PUT
@@ -234,9 +277,9 @@ switch:
   body_off: '{"selected": false}'
   is_on_template: '{{ value_json.selected }}'
   scan_interval: 5
-  success_code: 204
+  verify_ssl: false
 
-- platform: rest_status
+- platform: rest
   name: Living Room Speakers
   resource: !secret living_room_speaker_url
   method: PUT
@@ -244,9 +287,9 @@ switch:
   body_off: '{"selected": false}'
   is_on_template: '{{ value_json.selected }}'
   scan_interval: 5
-  success_code: 204
+  verify_ssl: false
 
-- platform: rest_status
+- platform: rest
   name: Kitchen Speakers
   resource: !secret kitchen_speaker_url
   method: PUT
@@ -254,9 +297,9 @@ switch:
   body_off: '{"selected": false}'
   is_on_template: '{{ value_json.selected }}'
   scan_interval: 5
-  success_code: 204
+  verify_ssl: false
 
-- platform: rest_status
+- platform: rest
   name: Office Speakers
   resource: !secret office_speaker_url
   method: PUT
@@ -264,9 +307,9 @@ switch:
   body_off: '{"selected": false}'
   is_on_template: '{{ value_json.selected }}'
   scan_interval: 5
-  success_code: 204
+  verify_ssl: false
 
-- platform: rest_status
+- platform: rest
   name: Garage Speakers
   resource: !secret garage_speaker_url
   method: PUT
@@ -274,7 +317,17 @@ switch:
   body_off: '{"selected": false}'
   is_on_template: '{{ value_json.selected }}'
   scan_interval: 5
-  success_code: 204
+  verify_ssl: false
+
+- platform: rest
+  name: Studio Speakers
+  resource: !secret studio_speaker_url
+  method: PUT
+  body_on: '{"selected": true}'
+  body_off: '{"selected": false}'
+  is_on_template: '{{ value_json.selected }}'
+  scan_interval: 5
+  verify_ssl: false
 
 script:
   receiver_stream:

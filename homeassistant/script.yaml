@@ -44,7 +44,7 @@ music_alarm:
     - service: input_number.set_value
       data:
         entity_id: input_number.bedroom_volume
-        value: 20
+        value: 10
     - service: media_player.clear_playlist
       entity_id: media_player.mpd
     - service: media_player.shuffle_set
@@ -61,18 +61,23 @@ music_alarm:
         entity_id: light.tylers_light
         brightness: 200
         transition: 6000
+    # - service: media_player.media_pause
+    #   entity_id: media_player.mpd
+    # - delay: 00:00:01
+    # - service: media_player.media_play
+    #   entity_id: media_player.mpd
     - service: script.volume_fade
 
 volume_fade:
   alias: increase volume
   sequence:
   - data_template:
-      value: '{{ (states.input_number.bedroom_volume.state | int) +2 }}'
+      value: '{{ (states.input_number.bedroom_volume.state | int) +1 }}'
       entity_id: input_number.bedroom_volume
     service: input_number.set_value
   - delay: 00:00:20
   - condition: template
-    value_template: '{{ (states.input_number.bedroom_volume.state | int) < 40 }}'
+    value_template: '{{ (states.input_number.bedroom_volume.state | int) < 35 }}'
   - data:
       entity_id: script.volume_fade_b
     service: script.turn_on
@@ -81,7 +86,7 @@ volume_fade_b:
   alias: increase volume
   sequence:
   - data_template:
-      value: '{{ (states.input_number.bedroom_volume.state | int) +2 }}'
+      value: '{{ (states.input_number.bedroom_volume.state | int) +1 }}'
       entity_id: input_number.bedroom_volume
     service: input_number.set_value
   - delay: 00:00:20

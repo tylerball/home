@@ -185,6 +185,12 @@ views:
           - entity: input_number.garage_volume
             name: Garage Volume
 
+          - entity: switch.studio_speakers
+            name: Studio
+            tap_action: toggle
+          - entity: input_number.studio_volume
+            name: Studio Volume
+
       - type: 'custom:discogs-card'
 
   - id: library
