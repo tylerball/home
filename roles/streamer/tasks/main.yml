@@ -20,4 +20,19 @@
 - template:
     src: shairport-sync.conf
     dest: shairport-sync.conf
-  become: yes
+
+- file:
+    path: daapd
+    state: directory
+
+- copy:
+    src: ~/home/daapd/Dockerfile
+    dest: daapd/
+
+- copy:
+    src: ~/home/daapd/start.sh
+    dest: daapd/
+
+- copy:
+    src: forked-daapd.conf
+    dest: daapd/

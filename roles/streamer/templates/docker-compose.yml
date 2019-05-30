@@ -13,3 +13,15 @@ services:
       - /dev/snd:/dev/snd
     command: -c /etc/shairport-sync.conf
     restart: always
+
+  daapd:
+    container_name: daapd
+    build: daapd
+    network_mode: host
+    volumes:
+      - ./daapd:/mnt
+      - ./daapd/forked-daapd.conf:/etc/forked-daapd.conf
+    environment:
+      - MEDIA_SERVER_NAME=Streamer
+      - PUID=1000
+    restart: always
