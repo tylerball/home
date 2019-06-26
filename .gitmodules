@@ -1,0 +1,3 @@
+[submodule "homeassistant/www/forked-daapd-card"]
+	path = homeassistant/www/forked-daapd-card
+	url = https://github.com/tylerball/forked-daapd-card.git

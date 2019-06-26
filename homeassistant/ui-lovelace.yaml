@@ -5,6 +5,8 @@ resources:
     type: js
   - url: /local/ttc.js
     type: js
+  - url: /local/forked-daapd-card/forked-daapd-card.js?v=0.0.2
+    type: module
 title: Davenport
 views:
   - id: travel
@@ -150,46 +152,21 @@ views:
           entity: media_player.mpd
 
       - card:
+        type: "custom:forked-daapd-card"
+        entity: media_player.mpd
+        ip: !secret daapd_url
+        ws_port: ''
+        name: Audio
+        username: admin
+        password: !secret daapd_password
+
+      - card:
         type: entities
         title: Speakers
         column_width: 50%
         entities:
-          - entity: switch.living_room_speakers
-            name: Living Room
-            tap_action: toggle
           - entity: input_number.receiver_volume
             name: Living Room Volume
-
-          - entity: switch.bedroom_speakers
-            name: Bedroom
-            icon: mdi:airplay
-            tap_action: toggle
-          - entity: input_number.bedroom_volume
-            name: Bedroom Volume
-
-          - entity: switch.office_speakers
-            name: Office
-            tap_action: toggle
-          - entity: input_number.office_volume
-            name: Office Volume
-
-          - entity: switch.kitchen_speakers
-            name: Kitchen
-            tap_action: toggle
-          - entity: input_number.kitchen_volume
-            name: Kitchen Volume
-
-          - entity: switch.garage_speakers
-            name: Garage
-            tap_action: toggle
-          - entity: input_number.garage_volume
-            name: Garage Volume
-
-          - entity: switch.studio_speakers
-            name: Studio
-            tap_action: toggle
-          - entity: input_number.studio_volume
-            name: Studio Volume
 
       - type: 'custom:discogs-card'
 
