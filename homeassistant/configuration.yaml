@@ -10,6 +10,8 @@ homeassistant:
 
   packages: !include_dir_named packages
 
+default_config:
+
 http:
   base_url: !secret base_url
   use_x_forwarded_for: true
@@ -35,9 +37,6 @@ discovery:
   enable:
     - homekit
 config:
-logbook:
-history:
-system_health:
 sun:
 ios:
 homekit:

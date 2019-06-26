@@ -48,6 +48,11 @@ views:
           - scene.sunset
           - scene.good_night
 
+      - type: picture-entity
+        entity: camera.foscam_camera
+        name: RiverCam
+        camera_view: live
+
       - type: thermostat
         entity: climate.home
 
@@ -79,16 +84,6 @@ views:
         entity: camera.front_door
         name: Front Door
         camera_view: live
-
-      - type: conditional
-        conditions:
-          - entity: group.device_trackers
-            state: 'not_home'
-        card:
-          type: picture-entity
-          entity: camera.foscam_camera
-          name: RiverCam
-          camera_view: live
 
       - type: vertical-stack
         cards:
@@ -169,14 +164,6 @@ views:
             name: Living Room Volume
 
       - type: 'custom:discogs-card'
-
-  - id: library
-    title: library
-    icon: mdi:music
-    panel: true
-    cards:
-      - type: iframe
-        url: http://192.168.1.50:3689
 
   - id: charts
     title: charts

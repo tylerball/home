@@ -1,6 +1,7 @@
 .git
 *.db-shm
 *.db-wal
+*.log
 
 syncthing/*.db
 
