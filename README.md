@@ -8,7 +8,7 @@ My home automation configuration.
 
 - control lights: [Ikea Tradfri][tradfri] and [Lutron Caseta][lutron]
 - control music: [See below](#music)
-- display [TTC][ttc] bus arrival times via the [NextBus API][nextbus] and a [custom component][https://github.com/tylerball/home/blob/master/homeassistant/custom_components/sensor/ttc.py]
+- display [TTC][ttc] bus arrival times via the [NextBus component][nextbus] and a [custom card][https://github.com/tylerball/home/blob/master/homeassistant/www/ttc.js]
 - and much more
 
 ## setting up the hub
@@ -28,4 +28,4 @@ More info soon.
 [tradfri]:https://www.home-assistant.io/components/tradfri/
 [lutron]:https://www.home-assistant.io/components/lutron_caseta/
 [ttc]:http://www.ttc.ca
-[nextbus]:https://gist.github.com/grantland/7cf4097dd9cdf0dfed14
+[nextbus]:https://www.home-assistant.io/components/nextbus/

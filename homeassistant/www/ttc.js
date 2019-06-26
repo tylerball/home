@@ -23,23 +23,21 @@ class TTCCard extends HTMLElement {
       if (index > 3) {
         return '';
       }
-      var rawSeconds = parseInt(pred.seconds);
-      var minutes = Math.floor(rawSeconds / 60);
-      var seconds = ("0" + (rawSeconds - minutes)).substring(0, 2);
+      let output;
+      let minutes = parseInt(pred);
+      if (minutes.toString() == "NaN") {
+        output = pred;
+      } else {
+        output = `${pred}min`;
+      }
       return `
         <div class="prediction">
-          ${minutes}:${seconds}
+          ${output}
         </div>
       `;
     }
 
-    if (data.attributes.hasOwnProperty('prediction')) {
-      if (data.attributes.prediction.length) {
-        predictions = data.attributes.prediction.map(parsePrediction);
-      } else {
-        predictions = [parsePrediction(data.attributes.prediction)];
-      }
-    }
+    predictions = data.attributes.upcoming.split(', ').map(parsePrediction);
 
     this.content.innerHTML = `
       <style>
@@ -56,7 +54,7 @@ class TTCCard extends HTMLElement {
       </style>
 
       <div class="outer">
-        <h3>${data.attributes.routeTitle}</h3>
+        <h3>${data.attributes.route}</h3>
         <div class="predictions">
           ${predictions.join(' ')}
         </div>

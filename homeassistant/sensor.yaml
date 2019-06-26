@@ -37,10 +37,12 @@
   options:
     mode: transit
 
-- platform: ttc
+- platform: nextbus
+  agency: ttc
   route: 168
-  tag: 2540
+  stop: 2540
 
-- platform: ttc
+- platform: nextbus
+  agency: ttc
   route: 127
-  tag: 2540
+  stop: 2540
