@@ -119,11 +119,6 @@ device_tracker:
       track_new_devices: true
       hide_if_away: false
 
-shinobi:
-  host: !secret shinobi_host
-  api_key: !secret shinobi_key
-  group_key: !secret shinobi_group
-
 rest_command:
   river_record:
     url: !secret rivercam_url_rec
