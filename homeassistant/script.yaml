@@ -40,7 +40,7 @@ music_alarm:
   alias: 'Music Alarm'
   sequence:
     - service: switch.turn_on
-      entity_id: switch.bedroom_speakers
+      entity_id: switch.bedroom_stereo
     - service: rest_command.set_bedroom_volume
       data:
         volume: 10
@@ -60,11 +60,6 @@ music_alarm:
         entity_id: light.tylers_light
         brightness: 200
         transition: 6000
-    - service: media_player.media_pause
-      entity_id: media_player.mpd
-    - delay: 00:00:05
-    - service: media_player.media_play
-      entity_id: media_player.mpd
     - service: script.volume_fade
 
 light_alarm:
