@@ -1,0 +1,29 @@
+check program smarta with path "/usr/local/bin/smartcheck /dev/sda"
+    every 120 cycles
+    if status != 0 then alert
+    group health
+
+check program smartb with path "/usr/local/bin/smartcheck /dev/sdb"
+    every 120 cycles
+    if status != 0 then alert
+    group health
+
+check program smartc with path "/usr/local/bin/smartcheck /dev/sdc"
+    every 120 cycles
+    if status != 0 then alert
+    group health
+
+check program smartd with path "/usr/local/bin/smartcheck /dev/sdd"
+    every 120 cycles
+    if status != 0 then alert
+    group health
+
+check program smarte with path "/usr/local/bin/smartcheck /dev/sde"
+    every 120 cycles
+    if status != 0 then alert
+    group health
+
+check program smartf with path "/usr/local/bin/smartcheck /dev/sdf"
+    every 120 cycles
+    if status != 0 then alert
+    group health

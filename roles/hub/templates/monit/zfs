@@ -1,0 +1,3 @@
+check program zfs_health with path "/usr/local/bin/zfscheck 80 691200"
+    every 300 cycles
+  if status != 0 then alert

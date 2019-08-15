@@ -3,110 +3,27 @@
     - debug
     - copy
 
-- shell: pip install docker
-  args:
-    creates: /usr/local/lib/python2.7/dist-packages/docker
-  become: yes
-
-- shell: curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-  args:
-    creates: /etc/apt/sources.list.d/nodesource.list
-
-- shell: wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/stretch.list
-  become: yes
-  args:
-    creates: /etc/apt/sources.list.d/mopidy.list
-
 - name: apt packages
   apt: name={{ item }}
   with_items: ['{{apt_packages}}']
   become: yes
 
-- name: pip packages
-  pip: name={{ item }}
-  with_items: ['{{pip_packages}}']
+- template:
+    src: monitrc
+    dest: /etc/monit/monitrc
   become: yes
 
-- file:
-    path: docker
-    state: directory
-
-- template:
-    src: docker-compose.yml
-    dest: docker/docker-compose.yml
-  tags: copy
-
-- file:
-    path: traefik
-    state: directory
-
-- template:
-    src: traefik.toml
-    dest: traefik/traefik.toml
-  tags: copy
-
-- file:
-    path: traefik/acme
-    state: directory
-
-- file:
-    path: traefik/acme/acme.json
-    state: touch
-    mode: 0600
-  become: yes
-
-- file:
-    path: .homeassistant
-    state: directory
-
-- file:
-    path: .homeassistant/known_devices.yaml
-    state: touch
-
-- file:
-    path: .homeassistant/custom_components
-    state: directory
-
-- file:
-    path: .homeassistant/custom_components/media_player
-    state: directory
-
-- template:
-    src: airfoil.py
-    dest: .homeassistant/custom_components/media_player/airfoil.py
-
-- template:
+- copy:
     src: '{{ item }}'
-    dest: '.homeassistant/{{ item }}'
-  with_items:
-    - caseta.key
-    - caseta.crt
-    - caseta-bridge.crt
-
-- template:
-    src: '{{ item }}'
-    dest: .homeassistant/{{ item | basename }}
+    dest: /etc/monit/conf.d/{{ item | basename }}
   with_fileglob:
-    - ../templates/*.yaml
-  tags: copy
-
-- name: docker-compose
-  docker_service:
-    project_src: docker
+    - ../templates/monit/*
   become: yes
 
-- template:
-    src: mopidy.conf
-    dest: /etc/mopidy/mopidy.conf
+- copy:
+    src: '{{ item }}'
+    dest: /usr/local/bin/{{ item | basename }}
+    mode: a+x
+  with_fileglob:
+    - ../files/bin/*
   become: yes
-  tags: copy
-  notify:
-    - restart mopidy
-
-- template:
-    src: icecast.xml
-    dest: /etc/icecast2/icecast.xml
-  become: yes
-  tags: copy
-  notify:
-    - restart icecast

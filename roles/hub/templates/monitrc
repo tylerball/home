@@ -1,0 +1,36 @@
+# How often in seconds should monit check your services.
+set daemon 120
+
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+
+# Configure your SMTP out server.
+set mailserver smtp.fastmail.com port 465
+  username "{{email}}" password "{{mail_password}}"
+  using ssl
+  with timeout 30 seconds
+  using hostname {{url}}
+
+set mail-format { from: {{email}} }
+
+set eventqueue
+    basedir /var/lib/monit/events # set the base directory where events will be stored
+    # optionally limit the queue size
+    slots 100
+
+# Use one of the following 2 lines. The second line alerts on every little change and can be annoying.
+set alert {{email}} but not on { instance, pid, ppid } #does not send alert on pid changes
+#set alert admin@domain.com
+
+set httpd port 2812
+    use address 0.0.0.0
+    #Change username and password
+    allow {{monit_creds}}
+    # To enable SSL for WebUI uncomment the next 2 lines
+    #ssl enable
+    #pemfile /path/to/unified/certificate.pem
+    # To restrict access to localhost only uncomment the following line
+    #allow localhost
+
+include /etc/monit/conf.d/*
