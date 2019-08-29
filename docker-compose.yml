@@ -1,9 +1,10 @@
-version: "3"
+version: "3.5"
 
 services:
   traefik:
     hostname: traefik
-    image: traefik:latest
+    image: traefik:v2.0
+    command: --api --providers.docker
     container_name: traefik
     domainname: 2030davenport.com
     network_mode: host
@@ -11,7 +12,7 @@ services:
       - 80:80
       - 443:443
       - 8080:8080
-      # - 3688:3688
+      - 3687:3687
     env_file:
       - ./traefik.env
     volumes:
@@ -131,3 +132,19 @@ services:
     ports:
       - 5900:5900
     restart: always
+
+  weewx:
+    container_name: weewx
+    image: mitct02/weewx
+    volumes:
+      - ./weewx.conf:/home/weewx/archive
+      - /mnt/pool/weather/archive:/home/weewx/archive
+      - /mnt/pool/weather/www:/home/weewx/public_html
+
+  weewx-web:
+    container_name: weewx-web
+    image: nginx
+    volumes:
+      - /mnt/pool/weather/www:/usr/share/nginx/html
+    ports:
+      - 8090:80

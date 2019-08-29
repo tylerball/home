@@ -1,45 +1,74 @@
-[frontends]
-  # [frontends.frontend-daapd]
-  #   backend = "backend-daapd"
-  #   passHostHeader = true
-  #   [frontends.frontend-daapd.routes]
-  #   [frontends.frontend-daapd.routes.route-daapd-ext]
-  #   rule = "Host:daapd.2030davenport.com"
-  # [frontends.frontend-daapd-ws]
-  #   entrypoints = ["ws"]
-  #   backend = "backend-daapd-ws"
-  #   passHostHeader = true
-  #   [frontends.frontend-daapd-ws.routes.route-daapd-ext-ws]
-  #   rule = "Host:daapd.2030davenport.com"
-  [frontends.homeassistant]
-    backend="homeassistant"
-    entryPoints = ["https"]
-    passHostHeader = true
-    [frontends.homeassistant.routes.docker_host]
-      rule="Host:2030davenport.com"
-  [frontends.shinobi]
-    backend="shinobi"
-    entryPoints = ["https"]
-    passHostHeader = true
-    [frontends.shinobi.routes.docker_host]
-      rule="Host:shinobi.2030davenport.com"
+[http]
+  [http.routers]
+    [http.routers.http]
+      entryPoints = ["http"]
+      rule = "Host(`2030davenport.com`)"
+      middlewares = ["redirect-https"]
+      service = "homeassistant"
+    [http.routers.https]
+      entryPoints = ["https"]
+      rule = "Host(`2030davenport.com`)"
+      service = "homeassistant"
+      [http.routers.https.tls]
+        certResolver = "linode"
 
-[backends]
-  [backends.backend-daapd]
-    [backends.backend-daapd.servers]
-    [backends.backend-daapd.servers.server-daapd-ext]
-    url = "http://192.168.1.50:3689"
-    weight = 0
-  [backends.backend-daapd-ws]
-    [backends.backend-daapd-ws.servers]
-    [backends.backend-daapd-ws.servers.server-daapd-ext-ws]
-    url = "http://192.168.1.50:3687"
-    weight = 0
-  [backends.homeassistant]
-    [backends.homeassistant.servers.host]
-      url = "http://192.168.1.50:8123"
-      weight = 10
-  [backends.shinobi]
-    [backends.shinobi.servers.host]
-      url = "http://192.168.1.50:8088"
-      weight = 10
+    [http.routers.daapd]
+      entryPoints = ["https"]
+      rule = "Host(`daapd.2030davenport.com`)"
+      middlewares = ["auth"]
+      service = "daapd"
+      [http.routers.daapd.tls]
+        certResolver = "linode"
+    [http.routers.daapd-path]
+      entryPoints = ["https"]
+      rule = "Host(`2030davenport.com`) && PathPrefix(`/daapd`)"
+      middlewares = ["auth", "daapd-strip"]
+      service = "daapd"
+      [http.routers.daapd-path.tls]
+        certResolver = "linode"
+    [http.routers.daapd-ws]
+      entryPoints = ["https"]
+      rule = "Host(`2030davenport.com`) && Path(`/daapdsocket`)"
+      middlewares = ["ws-strip"]
+      service = "daapd-socket"
+      [http.routers.ws.tls]
+        certResolver = "linode"
+    [http.routers.daapd-ws-external]
+      entryPoints = ["ws"]
+      rule = "Host(`daapd.2030davenport.com`)"
+      middlewares = ["whitelist"]
+      service = "daapd-socket"
+      [http.routers.daapd-ws-external.tls]
+        certResolver = "linode"
+
+  [http.middlewares]
+    [http.middlewares.redirect-https.redirectScheme]
+      scheme = "https"
+      port = "443"
+    [http.middlewares.ws-strip.StripPrefix]
+      prefixes = ["/daapdsocket"]
+    [http.middlewares.auth.basicauth]
+      usersFile = "/etc/traefik/auth"
+    [http.middlewares.daapd-strip.StripPrefix]
+      prefixes = ["/daapd"]
+    [http.middlewares.whitelist.IpWhiteList]
+      sourceRange = ["192.168.1.1"]
+
+  [http.services]
+    [http.services.homeassistant.loadBalancer]
+      [[http.services.homeassistant.LoadBalancer.servers]]
+        url = "http://192.168.1.50:8123"
+
+    [http.services.daapd.loadBalancer]
+      [[http.services.daapd.LoadBalancer.servers]]
+        url = "http://192.168.1.50:3689"
+
+    [http.services.daapd-socket.loadBalancer]
+      [[http.services.daapd-socket.LoadBalancer.servers]]
+        url = "http://192.168.1.50:3688"
+
+[tcp]
+  [tcp.services]
+    [tcp.services.daapd-socket-tcp.loadBalancer]
+      [[tcp.services.daapd-socket-tcp.LoadBalancer.servers]]
+        address = "192.168.1.50:3688"

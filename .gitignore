@@ -9,6 +9,7 @@
 *.sqlite
 
 traefik/acme
+traefik/auth
 
 homeassistant/.storage
 homeassistant/.spotify-token-cache

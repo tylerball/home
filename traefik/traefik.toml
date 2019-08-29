@@ -1,30 +1,28 @@
-InsecureSkipVerify = true
 defaultEntryPoints = ["https", "http"]
+
+[log]
+level = "DEBUG"
 
 [entryPoints]
   [entryPoints.https]
   address = ":443"
-    [entryPoints.https.tls]
   [entryPoints.http]
   address = ":80"
-    [entryPoints.http.redirect]
-    entryPoint = "https"
-  # [entryPoints.ws]
-  # address = ":3688"
-  #   [entryPoints.ws.tls]
+  [entryPoints.ws]
+  address = ":3687"
 
-[acme]
+[serversTransport]
+  insecureSkipVerify = true
+
+[certificatesResolvers.linode.acme]
 email = "tyler@tylerball.net"
 storage = "/etc/traefik/acme/acme.json"
-entryPoint = "https"
-acmeLogging=true
-onDemand = false
-[acme.dnsChallenge]
+[certificatesResolvers.linode.acme.dnsChallenge]
   provider = "linode"
   delayBeforeCheck = 0
-[[acme.domains]]
+[[certificateResolvers.davenport.acme.domains]]
   main = "2030davenport.com"
-[[acme.domains]]
+[[certificateResolvers.davenport.acme.domains]]
   main = "*.2030davenport.com"
 
 [docker]
@@ -34,13 +32,12 @@ exposedByDefault = false
 watch = true
 
 [api]
-  entryPoint = "traefik"
   dashboard = true
-  address = ":8080"
 
 [accessLog]
   filePath = "/etc/traefik/access.log"
 
-[file]
-  filename = "/etc/traefik/rules.toml"
-  watch = true
+[providers]
+  [providers.file]
+    filename = "/etc/traefik/rules.toml"
+    watch = true
