@@ -106,19 +106,6 @@ logger:
   logs:
     # homeassistant.components.tradfri: debug
 
-device_tracker:
-  - platform: unifi
-    host: !secret unifi_ip
-    port: 8443
-    verify_ssl: false
-    username: !secret unifi_username
-    password: !secret unifi_password
-    site_id: !secret unifi_site
-    detection_time: 180
-    new_device_defaults:
-      track_new_devices: true
-      hide_if_away: false
-
 rest_command:
   river_record:
     url: !secret rivercam_url_rec
