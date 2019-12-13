@@ -39,11 +39,10 @@ burn_it_down:
 music_alarm:
   alias: 'Music Alarm'
   sequence:
-    - service: switch.turn_on
-      entity_id: switch.bedroom_stereo
+    - service: rest_command.set_bedroom_only
     - service: rest_command.set_bedroom_volume
       data:
-        volume: 10
+        volume: 1
     - service: media_player.clear_playlist
       entity_id: media_player.mpd
     - service: media_player.shuffle_set
@@ -60,6 +59,12 @@ music_alarm:
         entity_id: light.tylers_light
         brightness: 200
         transition: 6000
+    - delay: 00:00:05
+    - service: media_player.media_pause
+      entity_id: media_player.mpd
+    - delay: 00:00:05
+    - service: media_player.media_play
+      entity_id: media_player.mpd
     - service: script.volume_fade
 
 light_alarm:

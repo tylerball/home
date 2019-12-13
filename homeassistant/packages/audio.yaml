@@ -86,28 +86,6 @@ automation:
   action:
     service: script.receiver_stream
 
-- alias: Bedroom Speaker On
-  trigger:
-    platform: state
-    entity_id: sensor.bedroom_volume
-  condition:
-    - condition: template
-      value_template: "{{ state_attr('sensor.bedroom_volume', 'selected') }}"
-  action:
-    - service: switch.turn_on
-      entity_id: switch.bedroom_stereo
-
-- alias: Bedroom Speaker Off
-  trigger:
-    platform: state
-    entity_id: sensor.bedroom_volume
-  condition:
-    - condition: template
-      value_template: "{{ state_attr('sensor.bedroom_volume', 'selected') == False }}"
-  action:
-    service: switch.turn_off
-    entity_id: switch.bedroom_stereo
-
 script:
   volume_fade:
     alias: increase volume
@@ -117,7 +95,7 @@ script:
         volume: '{{ state_attr("sensor.bedroom_volume", "volume") +1 }}'
     - delay: 00:00:20
     - condition: template
-      value_template: '{{ state_attr("sensor.bedroom_volume", "volume") < 45 }}'
+      value_template: '{{ state_attr("sensor.bedroom_volume", "volume") < 20 }}'
     - service: script.volume_fade_b
 
   volume_fade_b:
@@ -128,7 +106,7 @@ script:
         volume: '{{ state_attr("sensor.bedroom_volume", "volume") +1 }}'
     - delay: 00:00:20
     - condition: template
-      value_template: '{{ state_attr("sensor.bedroom_volume", "volume") < 45 }}'
+      value_template: '{{ state_attr("sensor.bedroom_volume", "volume") < 20 }}'
     - service: script.volume_fade
 
   receiver_stream:
@@ -157,6 +135,10 @@ sensor:
   scan_interval: 10
 
 rest_command:
+  set_bedroom_only:
+    url: !secret output_set_url
+    method: PUT
+    payload: '{"outputs": ["57717329783414"] }'
   set_bedroom_volume:
     url: !secret bedroom_speaker_url
     method: PUT

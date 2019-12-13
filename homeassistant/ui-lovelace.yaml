@@ -16,11 +16,9 @@ views:
       - type: entities
         entities:
           - type: entity-button
-            name: Front Door
-            entity: lock.front_door
-          - type: entity-button
             name: Garage Door
-            entity: cover.garage
+            entity: cover.garage_door
+          - scene.good_night
           - entity: sensor.travel_time_tyler
             name: Travel Time to Tyler's Work
           - entity: sensor.travel_time_jen
@@ -131,6 +129,16 @@ views:
     title: media
     icon: mdi:speaker
     cards:
+      - card:
+        type: "custom:forked-daapd-card"
+        entity: media_player.mpd
+        ip: !secret daapd_url
+        ws_ip: !secret daapd_ws
+        ws_port: ''
+        name: Audio
+        username: admin
+        password: !secret daapd_password
+
       - type: conditional
         conditions:
           - entity: media_player.spotify
@@ -145,15 +153,6 @@ views:
         card:
           type: media-control
           entity: media_player.mpd
-
-      - card:
-        type: "custom:forked-daapd-card"
-        entity: media_player.mpd
-        ip: !secret daapd_url
-        ws_port: ''
-        name: Audio
-        username: admin
-        password: !secret daapd_password
 
       - card:
         type: entities
