@@ -16,10 +16,9 @@ http:
   base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies:
-    - !secret host_ip
-  trusted_networks:
-    - 127.0.0.1
-  ip_ban_enabled: true
+    - 172.17.0.0/24
+    - 10.0.1.1
+  ip_ban_enabled: false
   login_attempts_threshold: 5
 
 frontend: !include frontend.yaml

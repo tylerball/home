@@ -1,45 +1,9 @@
 version: "3.5"
 
 services:
-  traefik:
-    hostname: traefik
-    image: traefik:v2.0
-    command: --api --providers.docker
-    container_name: traefik
-    domainname: 2030davenport.com
-    network_mode: host
-    ports:
-      - 80:80
-      - 443:443
-      - 8080:8080
-      - 3687:3687
-    env_file:
-      - ./traefik.env
-    volumes:
-      - ./traefik:/etc/traefik
-      - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      - traefik.enable=true
-      - traefik.backend=traefik
-      - traefik.frontend.rule=Host:traefik.2030davenport.com
-      - traefik.port=8080
-      - traefik.docker.network=traefik_proxy
-      - traefik.frontend.headers.SSLRedirect=true
-      - traefik.frontend.headers.STSSeconds=315360000
-      - traefik.frontend.headers.browserXSSFilter=true
-      - traefik.frontend.headers.contentTypeNosniff=true
-      - traefik.frontend.headers.forceSTSHeader=true
-      - traefik.frontend.headers.SSLHost=2030davenport.com
-      - traefik.frontend.headers.STSIncludeSubdomains=true
-      - traefik.frontend.headers.STSPreload=true
-      - traefik.frontend.headers.frameDeny=true
-    restart: always
-
   homeassistant:
     container_name: home-assistant
     image: homeassistant/home-assistant:latest
-    depends_on:
-      - traefik
     volumes:
       - ./homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
@@ -51,22 +15,6 @@ services:
       - TZ=America/Toronto
     devices:
       - /dev/ttyACM0:/dev/ttyACM0
-    restart: always
-
-  shinobi:
-    container_name: shinobi
-    image: migoller/shinobidocker
-    depends_on:
-      - traefik
-    volumes:
-     - /etc/localtime:/etc/localtime:ro
-     - /etc/timezone:/etc/timezone:ro
-     - /dev/shm/shinobiDockerTemp:/dev/shm/streams
-     - ./shinobi/config:/config
-     - /mnt/pool/shinobi/datadir:/var/lib/mysql
-     - /mnt/pool/cams:/opt/shinobi/videos
-    ports:
-     - 8088:8080
     restart: always
 
   spotify:
@@ -107,6 +55,8 @@ services:
       - PUID=1000
     env_file:
       - ./daapd.env
+    ports:
+      - "6600:6600/tcp"
     restart: always
 
   syncthing:
