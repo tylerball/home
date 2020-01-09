@@ -139,11 +139,11 @@ for volume in ${zfsVolumes}
     #scrubRawDate=$(/sbin/zpool status $volume | grep scrub | awk '{print $15 $12 $13}')
     #scrubDate=$(date -j -f '%Y%b%e-%H%M%S' $scrubRawDate'-000000' +%s)
 
-    if [ $(($currentDate - $scrubDate)) -ge $scrubExpire ]; then
-      printf "\n==== ERROR ====\n"
-      printf "${volume}'s scrub date is too far in the past!"
-      exit 1
-    fi
+    # if [ $(($currentDate - $scrubDate)) -ge $scrubExpire ]; then
+    #   printf "\n==== ERROR ====\n"
+    #   printf "${volume}'s scrub date is too far in the past!"
+    #   exit 1
+    # fi
   done
 
 # Finish - If we made it here then everything is fine

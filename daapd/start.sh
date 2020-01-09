@@ -6,8 +6,7 @@ mkdir -p /cache/forked-daapd
 chown -R daapd /cache/forked-daapd
 chmod -R u+rw /cache/forked-daapd
 
-sed -i -e "s/admin_password = \"placeholder\"/admin_password = \"${ADMIN_PASSWORD:-}\"/" /etc/forked-daapd.conf
-sed -i -e "s/password = \"placeholder\"/password = \"${LIBRARY_PASSWORD:-}\"/" /etc/forked-daapd.conf
+sed -i -e "s/ password = \"placeholder\"/ password = \"${LIBRARY_PASSWORD:-}\"/" /etc/forked-daapd.conf
 
 [ -d "/var/run" ] && rm -rf /var/run/*
 mkdir -p /var/run/dbus
