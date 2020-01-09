@@ -10,6 +10,8 @@
     light.front_porch_porch_light:
       state: true
       brightness: 10
+    group.xmas_lights:
+      state: true
 
 - name: Good Night
   entities:
@@ -17,3 +19,4 @@
     group.entrance_lights: false
     group.basement_lights: false
     media_player.sony_bravia_tv: false
+    group.xmas_lights: false

@@ -45,23 +45,6 @@ automation:
       data_template:
         volume: '{{ state_attr("media_player.receiver", "volume_level") * 100 | int }}'
 
-- alias: Receiver Volume set remote
-  trigger:
-    platform: state
-    entity_id: sensor.living_room_volume
-  condition:
-    - condition: template
-      value_template: "{{ state_attr('sensor.living_room_volume', 'selected') }}"
-  action:
-    - service: media_player.volume_set
-      data_template:
-        entity_id: media_player.receiver
-        volume_level: '{{ state_attr("sensor.living_room_volume", "volume") / 125 }}'
-    - service: input_number.set_value
-      data_template:
-        entity_id: input_number.receiver_volume
-        value: "{{ state_attr('sensor.living_room_volume', 'volume') * 1.25 }}"
-
 - alias: Receiver input change
   trigger:
     platform: state

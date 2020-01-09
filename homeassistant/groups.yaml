@@ -29,6 +29,8 @@ device_trackers:
   entities:
     - device_tracker.tylers_phone
     - device_tracker.jens_phone
+    - device_tracker.chris_phone
+    - device_tracker.jens_phone
 
 occupancy_sensors:
   entities:
@@ -36,3 +38,8 @@ occupancy_sensors:
     - binary_sensor.kitchen_occupancy
     - binary_sensor.office_occupancy
     - binary_sensor.bedroom_occupancy
+
+xmas_lights:
+  entities:
+    - switch.tree
+    - switch.garland

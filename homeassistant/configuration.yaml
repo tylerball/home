@@ -94,9 +94,7 @@ lutron_caseta:
   ca_certs: caseta-bridge.crt
 
 logger:
-  default: warning
-  logs:
-    # homeassistant.components.tradfri: debug
+  default: info
 
 rest_command:
   river_record:
