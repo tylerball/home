@@ -1,13 +1,5 @@
 - platform: time_date
 - platform: yr
-- platform: ring
-  monitored_conditions:
-    - battery
-    - last_activity
-    - last_ding
-    - last_motion
-    - volume
-
 - platform: discogs
   token: !secret discogs_token
 

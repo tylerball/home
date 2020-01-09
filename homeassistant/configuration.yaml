@@ -33,8 +33,6 @@ folder_watcher:
 discovery:
   ignore:
     - google_cast
-  enable:
-    - homekit
 config:
 sun:
 ios:
@@ -73,7 +71,6 @@ ecobee:
 
 stream:
 camera:
-  - platform: ring
   - platform: foscam
     ip: !secret rivercam_ip
     username: !secret rivercam_user
@@ -83,10 +80,6 @@ notify:
   - platform: pushover
     api_key: !secret pushover_api_key
     user_key: !secret pushover_user_key
-
-ring:
-  username: !secret email
-  password: !secret ring_password
 
 cover:
   - platform: myq

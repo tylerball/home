@@ -78,10 +78,10 @@ views:
           title: Basement lights
         group: group.basement_lights
 
-      - type: picture-entity
-        entity: camera.front_door
-        name: Front Door
-        camera_view: live
+      # - type: picture-entity
+      #   entity: camera.front_door
+      #   name: Front Door
+      #   camera_view: live
 
       - type: vertical-stack
         cards:
