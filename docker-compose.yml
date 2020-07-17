@@ -83,6 +83,19 @@ services:
       - 5900:5900
     restart: always
 
+  subsonic:
+    container_name: subsonic
+    image: airsonicadvanced/airsonic-advanced:latest
+    volumes:
+      - /mnt/pool/tunes:/mnt/pool/tunes
+      - ./subsonic:/var/airsonic
+    environment:
+      - TZ=America/Toronto
+      - GID=1000
+      - UID=1000
+    network_mode: host
+    restart: always
+
   weewx:
     container_name: weewx
     image: mitct02/weewx
