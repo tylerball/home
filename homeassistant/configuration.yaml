@@ -110,11 +110,6 @@ speedtestdotnet:
     - upload
 
 input_datetime:
-  music_alarm:
-    name: Music Wake Up
-    has_date: false
-    has_time: true
-    initial: '08:15'
   light_alarm:
     name: Light alarm
     has_date: false

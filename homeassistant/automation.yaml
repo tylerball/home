@@ -19,23 +19,6 @@
     service: scene.turn_on
     entity_id: scene.good_night
 
-- alias: Music Alarm
-  trigger:
-    platform: time_pattern
-    minutes: '/1'
-    seconds: '30'
-  condition:
-    - condition: template
-      value_template: "{{ states('sensor.time') == (state_attr('input_datetime.music_alarm' , 'timestamp') | int | timestamp_custom('%H:%M', false)) }}"
-    - condition: state
-      entity_id: binary_sensor.workday_sensor
-      state: 'on'
-    - condition: state
-      entity_id: device_tracker.tylers_iphone
-      state: 'home'
-  action:
-    service: script.music_alarm
-
 - alias: Light alarm
   trigger:
     platform: time_pattern

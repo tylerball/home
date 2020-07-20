@@ -89,12 +89,26 @@ services:
     volumes:
       - /mnt/pool/tunes:/mnt/pool/tunes
       - ./subsonic:/var/airsonic
+      - /dev/snd:/dev/snd
     environment:
       - TZ=America/Toronto
       - GID=1000
       - UID=1000
     network_mode: host
     restart: always
+
+  logitechmediaserver:
+    container_name: lms
+    image: justifiably/logitechmediaserver
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - /mnt/pool/tunes:/mnt/pool/tunes
+      - ./lms-state:/mnt/state
+    environment:
+      - TZ=America/Toronto
+      - GID=1000
+      - UID=1000
 
   weewx:
     container_name: weewx
